@@ -3,7 +3,7 @@ const path = require("path");
 module.exports = {
   mode: "production",
   output: {
-    filename: "scripts.min.js"
+    filename: "overlay.js"
   },
   module: {
     rules: [
