@@ -1,0 +1,8 @@
+var configData = {
+  channelName : "chenzorama",
+  Client_ID : 'xxxxx',
+  OAUTH: 'xxxxx',
+  userID: '58652316'
+}
+
+module.exports = configData;
