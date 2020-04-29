@@ -4,7 +4,8 @@ module.exports = {
   devtool: "source-map",
   mode: "production",
   output: {
-    filename: "overlay.js"
+    //filename: "overlay.js"
+    filename: '[name].js' //This fixes the Conflict: Multiple chunks emit assets to the same filename 
   },
   module: {
     rules: [
