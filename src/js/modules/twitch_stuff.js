@@ -3,16 +3,10 @@ import configData from './config.js';
 
 var twitch_obj = {
 
-    temp: function() {
-        console.log("Vince vince");
-    },
-
-
     displayFollowers: function(followerData) {
       var followCount = (followerData.data.length < 4) ? followerData.data.length : 3;
       var followHTML = "";
       for (var index = 0; index < followCount; index++) { 
-        console.log(followerData.data[index].from_name); 
         if (index != 0) {
           followHTML+= ", ";
         }
@@ -26,12 +20,10 @@ var twitch_obj = {
         fetch('https://api.twitch.tv/helix/users/follows?to_id=' + configData.userID, {
           headers: {
             'Client-ID': configData.Client_ID
-           }
+          }
         })
         .then(response => response.json())
         .then(data =>
-          //this.setState({ followData: data })
-          //js-latest-follower
           this.displayFollowers(data)
         )
         .catch(error => 
@@ -40,11 +32,11 @@ var twitch_obj = {
       },
     
     
-      getTwitchData: function() {
+      getTwitchStreamerData: function() {
         fetch('https://api.twitch.tv/helix/users?login=lirik', {
           headers: {
             'Client-ID': configData.Client_ID
-           }
+          }
         })
         .then(response => response.json())
         .then(data =>
