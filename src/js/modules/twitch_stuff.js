@@ -1,7 +1,7 @@
 //get twitch stuff
 
 import TwitchJS from 'twitch-js';
-import configData from '../config.js';
+import configData from './../config.js';
 
 var twitch_obj = {
 
@@ -22,7 +22,7 @@ var twitch_obj = {
 
     getAccessToken: function() {
 
-      console.log("Getting twitch access token");
+      console.log("Getting twitch access token!!");
 
       fetch('https://id.twitch.tv/oauth2/token?client_id=' + configData.Client_ID + '&client_secret=' + configData.Client_Secret + '&grant_type=client_credentials', {
         method: 'POST',
