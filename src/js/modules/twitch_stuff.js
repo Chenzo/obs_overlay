@@ -1,9 +1,11 @@
 //get twitch stuff
 
 import TwitchJS from 'twitch-js';
-import configData from './config.js';
+import configData from '../config.js';
 
 var twitch_obj = {
+
+    accessToken: 0,
 
     displayFollowers: function(followerData) {
       var followCount = (followerData.data.length < 4) ? followerData.data.length : 3;
@@ -18,10 +20,36 @@ var twitch_obj = {
       followElement.innerHTML = followHTML;
     },
 
+    getAccessToken: function() {
+
+      console.log("Getting twitch access token");
+
+      fetch('https://id.twitch.tv/oauth2/token?client_id=' + configData.Client_ID + '&client_secret=' + configData.Client_Secret + '&grant_type=client_credentials', {
+        method: 'POST',
+      })
+      .then(response => response.json())
+      .then(data => (
+        console.log(data),
+        twitch_obj.accessToken = data.access_token,
+        console.log("twitch_obj.accessToken: " + twitch_obj.accessToken),
+        this.getLatestFollowers())
+      )
+      .catch(error => 
+        console.log("Twitch Fetch Errored: " + error)
+      ); 
+    },
+
+
     getLatestFollowers: function() {
+
+      console.log("VINCE VINCE VINCE");
+      console.log(twitch_obj.accessToken);
+
       fetch('https://api.twitch.tv/helix/users/follows?to_id=' + configData.userID, {
+        method: 'GET',
         headers: {
-          'Client-ID': configData.Client_ID
+          'Client-ID': configData.Client_ID,
+          'Authorization': "Bearer " + twitch_obj.accessToken
         }
       })
       .then(response => response.json())
@@ -30,8 +58,10 @@ var twitch_obj = {
       )
       .catch(error => 
         console.log("Twitch Fetch Errored: " + error)
-      );
+      ); 
     },
+
+
   
     
     getTwitchStreamerData: function() {
@@ -121,7 +151,7 @@ var twitch_obj = {
 
     init: function() {
       console.log("Twitch INIT");
-      this.getLatestFollowers();
+      this.getAccessToken();
       this.initTwitch();
     }
 
