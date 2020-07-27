@@ -36,12 +36,14 @@ var voicebars = (function(){
                 //skull_top_open
                 //skull_top_closed
                 document.getElementById("skull_top_open").classList.remove("hidden");
+                document.getElementById("skull_top").classList.add("open");
                 document.getElementById("skull_top_closed").classList.add("hidden");
             } else {
                 document.getElementById("skull_top_open").classList.add("hidden");
+                document.getElementById("skull_top").classList.remove("open");
                 document.getElementById("skull_top_closed").classList.remove("hidden");
             }
-            document.getElementById("skull_top_open").style.top = topi + "px";
+            document.getElementById("skull_top").style.top = topi + "px";
             document.getElementById("skull_jaw").style.top = jawi + "px";
             //
         } else {

@@ -86,8 +86,8 @@
 
         .top_closed {
             position: absolute;
-            top: 13px;
-            left: 31px;
+            top: 0px;
+            left: 0px;
             &.hidden {
                 display: none;
             }
@@ -95,8 +95,8 @@
 
         .top_open {
             position: absolute;
-            top: 13px;
-            left: 31px;
+            top: 0px;
+            left: 0px;
             z-index: 10;
             //transition-duration: 0.05s;
             transition-property: top;
@@ -119,6 +119,54 @@
             height: 100%;
             display: block;
             background: #d12404
+        }
+
+
+        .skull_top {
+            position: absolute;
+            top: 13px;
+            left: 31px;
+            z-index: 10;
+            //transition-duration: 0.05s;
+            transition-property: top;
+
+            &.open {
+                .eyes {
+                    top: -8px;
+                }
+            }
+
+            .eyes {
+                position: absolute;
+                top: 0px;
+                left: 0px;
+
+                .eye {
+                    position: absolute;
+                    width: 8px;
+                    height: 8px;
+                    background: #d2d5c1;
+                    border-radius: 50%;
+                    z-index: 50;
+
+                    
+    
+    
+                    &.lefty {
+                        top: 49px;
+                        left: 48px;
+                        filter: drop-shadow(0px -2px 3px #d2d5c1);
+                    }
+
+                    &.righty {
+                        top: 47px;
+                        left: 90px;
+                        filter: drop-shadow(0px -2px 3px #d2d5c1);
+                    }
+                }
+            }
+
+            
         }
     }
 
