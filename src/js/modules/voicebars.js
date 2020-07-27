@@ -28,8 +28,8 @@ var voicebars = (function(){
             //console.log(i);
             //console.log(dataArray);
             let i = getLastIdx(dataArray);
-            let jawi = i + 109
-            let topi = (i/5)*-1;
+            let jawi = i/2 + 109
+            let topi = 13 - (i/10);
             console.log(i);
 
             if (i > 11) {
@@ -77,7 +77,7 @@ var voicebars = (function(){
                 var y2 = height/2 + Math.sin(p.angle) * (ss + radius);
     
                 ctx.beginPath();
-                var gradient = ctx.createRadialGradient(250,250,20, 250,250,175);
+                var gradient = ctx.createRadialGradient(2100,250,20, 250,250,175);
     
                 gradient.addColorStop("0", "#0e2b28");
                 gradient.addColorStop("0.5", "#0e2b28");
