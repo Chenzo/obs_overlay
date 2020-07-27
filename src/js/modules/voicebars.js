@@ -18,14 +18,50 @@ var voicebars = (function(){
     var num_items = 40;
     var particles = [];
     var myThing = document.getElementById("countdown");
+    var sType = 2;
 
     var tick = function() {
         analyser.getByteFrequencyData(dataArray);
-        drawBars(ctx, dataArray);
-        drawBars(ctx2, dataArray);
+        if (sType == 2) {
+
+            //let i = dataArray.indexOf(Math.max(...dataArray));
+            //console.log(i);
+            //console.log(dataArray);
+            let i = getLastIdx(dataArray);
+            let jawi = i + 109
+            let topi = (i/5)*-1;
+            console.log(i);
+
+            if (i > 11) {
+                //skull_top_open
+                //skull_top_closed
+                document.getElementById("skull_top_open").classList.remove("hidden");
+                document.getElementById("skull_top_closed").classList.add("hidden");
+            } else {
+                document.getElementById("skull_top_open").classList.add("hidden");
+                document.getElementById("skull_top_closed").classList.remove("hidden");
+            }
+            document.getElementById("skull_top_open").style.top = topi + "px";
+            document.getElementById("skull_jaw").style.top = jawi + "px";
+            //
+        } else {
+            drawBars(ctx, dataArray);
+            drawBars(ctx2, dataArray);
+        }
         rafId = requestAnimationFrame(tick);
         myThing.innerHTML = "rafId: " + rafId;
     };
+
+
+    var getLastIdx = function(dArray) {
+        var r = 0;
+        for (const [idx, s] of dArray.entries()) {
+            if (s > 10) {
+                r = idx;
+            }
+        }
+        return r;
+    }
 
     var drawBars = function(ctx, dataArray) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);

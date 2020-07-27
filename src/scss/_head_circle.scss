@@ -74,7 +74,52 @@
         }
 
         video {
-        position: absolute;
+            position: absolute;
+            display: none; //TURNED OFF VIDEO FOR NOW;
         }
     }
+
+    .skully {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+
+        .top_closed {
+            position: absolute;
+            top: 13px;
+            left: 31px;
+            &.hidden {
+                display: none;
+            }
+        }
+
+        .top_open {
+            position: absolute;
+            top: 13px;
+            left: 31px;
+            z-index: 10;
+            transition-duration: 0.05s;
+            transition-property: top;
+            &.hidden {
+                display: none;
+            }
+        }
+
+        .jaw {
+            position: absolute;
+            top: 119px;
+            left: 63px;
+            z-index: 12;
+            transition-duration: 0.05s;
+            transition-property: top;
+        }
+
+        .skull_bg {
+            width: 100%;
+            height: 100%;
+            display: block;
+            background: #d12404
+        }
+    }
+
 }
