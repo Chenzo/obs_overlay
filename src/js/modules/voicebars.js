@@ -19,20 +19,31 @@ var voicebars = (function(){
     var particles = [];
     var myThing = document.getElementById("countdown");
     var sType = 2;
+    //var fftSize = 128;
+    //var smoothingTimeConstant = 0.8;
+
+    var smoothingTimeConstant = 0.2;
+    var fftSize = 64;
 
     var tick = function() {
         analyser.getByteFrequencyData(dataArray);
         if (sType == 2) {
 
-            //let i = dataArray.indexOf(Math.max(...dataArray));
-            //console.log(i);
-            //console.log(dataArray);
             let i = getLastIdx(dataArray);
-            let jawi = i/2 + 109
+            
+            let jawi = i + 109
             let topi = 13 - (i/10);
-            console.log(i);
+            let alf = ( i * 5 ) * .01;
 
-            if (i > 11) {
+            var l = dataArray.length;
+            var sum = dataArray.reduce(function(a, b){
+                return a + b;
+            }, 0);
+
+            var nub = ~~(sum / l);
+            document.getElementById("numoutput").innerHTML= nub;
+
+            if (i > 1) {
                 //skull_top_open
                 //skull_top_closed
                 document.getElementById("skull_top_open").classList.remove("hidden");
@@ -45,6 +56,8 @@ var voicebars = (function(){
             }
             document.getElementById("skull_top").style.top = topi + "px";
             document.getElementById("skull_jaw").style.top = jawi + "px";
+            document.getElementById("skull_bg").style.opacity = alf;
+            
             //
         } else {
             drawBars(ctx, dataArray);
@@ -125,8 +138,8 @@ var voicebars = (function(){
             analyser = audioContext.createAnalyser();
             analyser.minDecibels = -90;
             analyser.maxDecibels = -10;
-            analyser.smoothingTimeConstant = 0.75; //0.85;
-            analyser.fftSize = 128;
+            analyser.smoothingTimeConstant = smoothingTimeConstant;
+            analyser.fftSize = fftSize;
             dataArray = new Uint8Array(analyser.frequencyBinCount);
             //var bufferLength = analyser.frequencyBinCount;
             source = audioContext.createMediaStreamSource(stream);
