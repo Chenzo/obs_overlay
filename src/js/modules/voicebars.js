@@ -53,7 +53,7 @@ var voicebars = (function(){
                 alf = (nub * 2 ) * .01;
             }
 
-            if (nub > 25) {
+            if (nub > 35) {
                 document.getElementById("skull_top_open").classList.remove("hidden");
                 document.getElementById("skull_top").classList.add("open");
                 document.getElementById("skull_top_closed").classList.add("hidden");
