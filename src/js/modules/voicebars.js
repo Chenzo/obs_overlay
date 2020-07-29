@@ -29,11 +29,13 @@ var voicebars = (function(){
         analyser.getByteFrequencyData(dataArray);
         if (sType == 2) {
 
-            let i = getLastIdx(dataArray);
-            
+            let i = 0;
             let jawi = i + 109
-            let topi = 13 - (i/10);
-            let alf = ( i * 5 ) * .01;
+            let topi = 13;
+            let alf = 0;
+            let soundlimit = 8;
+            var pastNub = 0;
+            var distancelimit = 3;
 
             var l = dataArray.length;
             var sum = dataArray.reduce(function(a, b){
@@ -43,9 +45,15 @@ var voicebars = (function(){
             var nub = ~~(sum / l);
             document.getElementById("numoutput").innerHTML= nub;
 
-            if (i > 1) {
-                //skull_top_open
-                //skull_top_closed
+            if (nub > pastNub + distancelimit || nub < pastNub - distancelimit) {
+                pastNub = nub;
+                nub = (nub - soundlimit < 0) ? 0 : nub - soundlimit;
+                jawi = (nub * .75) + 109;
+                topi = 13 - (nub/10);
+                alf = (nub * 2 ) * .01;
+            }
+
+            if (nub > 25) {
                 document.getElementById("skull_top_open").classList.remove("hidden");
                 document.getElementById("skull_top").classList.add("open");
                 document.getElementById("skull_top_closed").classList.add("hidden");
@@ -57,8 +65,6 @@ var voicebars = (function(){
             document.getElementById("skull_top").style.top = topi + "px";
             document.getElementById("skull_jaw").style.top = jawi + "px";
             document.getElementById("skull_bg").style.opacity = alf;
-            
-            //
         } else {
             drawBars(ctx, dataArray);
             drawBars(ctx2, dataArray);
