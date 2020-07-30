@@ -126,6 +126,20 @@ var twitch_obj = {
           // If an identity was provided, respond in channel with message.
           client.say(channel, 'Hello world!');
         }
+
+        if (options.identity && message === '!scooby') {
+          if (userstate['display-name'] == "Chenzorama" || userstate['mod']) {
+            headShot_OBJ.toggleCam("skully");
+            client.say(channel, 'Switching To Scooby Level Skull');
+          } 
+        }
+
+        if (options.identity && message === '!headshot') {
+          if (userstate['display-name'] == "Chenzorama" || userstate['mod']) {
+            headShot_OBJ.toggleCam("headshot");
+            client.say(channel, 'Switching To Chenzo Headshot');
+          } 
+        }
   
         
       });

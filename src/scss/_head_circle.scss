@@ -1,7 +1,5 @@
 .avContainer {
     position: relative;
-    //background: #00ff00; //chroma green
-    //background: magenta;
     width: 500px;
     height: 500px;
     position: absolute;
@@ -75,7 +73,6 @@
 
         video {
             position: absolute;
-            display: none; //TURNED OFF VIDEO FOR NOW;
         }
     }
 
@@ -189,15 +186,35 @@
     }
 
 
+    &.headshot {
+        .skully, .skull_bg, .skull_blk_bg {
+            display: none;
+        }
+    }
+
+    &.scooby {
+        .imageContainer {    
+            video {
+                display: none; 
+            }
+        }
+    }
+
 }
+
+
+
+
+
+
 
 
 
 @keyframes skullUpDown {
     0%, 100% {
-      top: 160px;
+        top: 160px;
     }
     50% {
-      top: 140px;
+        top: 140px;
     }
-  }
+}

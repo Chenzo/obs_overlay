@@ -1,5 +1,5 @@
 
-var voicebars = (function(){ 
+window.voicebars = (function(){ 
     
     var rafID,
         audioContext,
@@ -18,12 +18,24 @@ var voicebars = (function(){
     var num_items = 40;
     var particles = [];
     var myThing = document.getElementById("countdown");
-    var sType = 2;
-    //var fftSize = 128;
-    //var smoothingTimeConstant = 0.8;
+    var sType ,fftSize, smoothingTimeConstant;
 
-    var smoothingTimeConstant = 0.2;
-    var fftSize = 64;
+
+    var prepType = function() {
+
+        sType = 1; //headshot
+        fftSize = 128;
+        smoothingTimeConstant = 0.8;
+
+        sType = window.headShotType; 
+        if (window.headShotType == 2) {
+            //skull
+            smoothingTimeConstant = 0.2;
+            fftSize = 64;
+        }
+
+
+    }
 
     var tick = function() {
         analyser.getByteFrequencyData(dataArray);
@@ -69,7 +81,7 @@ var voicebars = (function(){
             drawBars(ctx, dataArray);
             drawBars(ctx2, dataArray);
         }
-        rafId = requestAnimationFrame(tick);
+        window.rafId = requestAnimationFrame(tick);
         myThing.innerHTML = "rafId: " + rafId;
     };
 
@@ -162,17 +174,29 @@ var voicebars = (function(){
     };
 
 
+    var restart = function() {
+        console.log("RESETTING");
+        window.cancelAnimationFrame( window.rafId);
+        audioContext.close().then(function() {
+            console.log("audioContextClosed");
+            init();
+        });
+    };
+
     var init = function() {
-        console.log("INSIDE")
+        console.log("Voice Bars INIT");
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx2.clearRect(0, 0, canvas.width, canvas.height);
+        prepType();
         makeAngles();
         getAudio();
-
     };
     
 
 
     return {
-        init : init
+        init : init,
+        restart : restart
     };
 
 
