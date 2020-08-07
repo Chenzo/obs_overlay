@@ -2,6 +2,7 @@ var configData = {
   channelName : "chenzorama",
   Client_ID : 'xxxxx',
   OAUTH: 'xxxxx',
+  Client_Secret : 'xxxxxx',
   userID: '58652316'
 }
 
