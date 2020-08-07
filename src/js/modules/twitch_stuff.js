@@ -140,6 +140,13 @@ var twitch_obj = {
             client.say(channel, 'Switching To Chenzo Headshot');
           } 
         }
+
+        if (options.identity && message === '!3') {
+          if (userstate['display-name'] == "Chenzorama" || userstate['mod']) {
+            console.log("3");
+            client.say(channel, '3');
+          } 
+        }
   
         
       });
