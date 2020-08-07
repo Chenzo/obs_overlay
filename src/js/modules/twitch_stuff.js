@@ -144,6 +144,8 @@ var twitch_obj = {
         if (options.identity && message === '!3') {
           if (userstate['display-name'] == "Chenzorama" || userstate['mod']) {
             console.log("3");
+            var myAudio = document.getElementById('um3');
+            myAudio.play();
             client.say(channel, '3');
           } 
         }
