@@ -60,12 +60,12 @@ window.voicebars = (function(){
             if (nub > pastNub + distancelimit || nub < pastNub - distancelimit) {
                 pastNub = nub;
                 nub = (nub - soundlimit < 0) ? 0 : nub - soundlimit;
-                jawi = (nub * .75) + 109;
+                jawi = (nub * .4) + 109;
                 topi = 13 - (nub/10);
-                alf = (nub * 2 ) * .01;
+                alf = (nub *1.5) * .01;
             }
 
-            if (nub > 35) {
+            if (nub > 50) {
                 document.getElementById("skull_top_open").classList.remove("hidden");
                 document.getElementById("skull_top").classList.add("open");
                 document.getElementById("skull_top_closed").classList.add("hidden");
