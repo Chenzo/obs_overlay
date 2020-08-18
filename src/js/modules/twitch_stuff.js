@@ -162,6 +162,12 @@ var twitch_obj = {
           //} 
         }
 
+        if (options.identity && message === '!digs') {
+            var myAudio = document.getElementById('digs');
+            myAudio.play();
+            client.say(channel, 'digs');
+        }
+
         if (options.identity && message === '!test') {
             console.log("bot try");
             //bot.say(channel, '3');
