@@ -1,7 +1,4 @@
 
-
-
-
 .crew {
     position: absolute;
     z-index: 1;
@@ -11,6 +8,13 @@
     .crewmate {
         position: absolute;
         bottom: 0px;
+
+        display: none;
+
+        &.active {
+            display: block;
+        }
+        
         img {
             height: 250px;
             width: auto;
