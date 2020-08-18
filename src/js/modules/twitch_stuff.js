@@ -92,7 +92,13 @@ var twitch_obj = {
           password: configData.OAUTH
         }
       };
-  
+
+
+      /* const bot = new TwitchJS.client({
+        username: "nightbot",
+        password: configData.OAUTH
+      });
+   */
       const client = new TwitchJS.client(options);
   
       client.on('chat', (channel, userstate, message, self) => {
@@ -100,15 +106,17 @@ var twitch_obj = {
         console.log(userstate);
   
   
-  
         // Do not repond if the message is from the connected identity.
         if (self) return;
-  
         
         if (options.identity && message.substring(0, 8) === '!addcrew') {
           if (userstate['display-name'] == "Chenzorama" || userstate['mod']) {
             const crewname = message.substr(9);//.split(" ")[0];
-            this.addCrew(crewname);
+            //this.addCrew(crewname);
+
+            var crewDiv = document.getElementById(crewname);
+            crewDiv.classList.add("active");
+
             client.say(channel, crewname + ' added as crew member!');
           } 
         }
@@ -116,9 +124,13 @@ var twitch_obj = {
         if (options.identity && message.substring(0, 11) === '!removecrew') {
           if (userstate['display-name'] == "Chenzorama" || userstate['mod']) {
             console.log("removing")
-            const crewInt = message.substring(12);
-            const who = this.removeCrew(crewInt);
-            client.say(channel, who + ' removed as crew member!');
+            const crewname = message.substring(12);
+            //const who = this.removeCrew(crewInt);
+
+            var crewDiv = document.getElementById(crewname);
+            crewDiv.classList.remove("active");
+
+            client.say(channel, crewname + ' removed as crew member!');
           } 
         }
   
@@ -128,26 +140,37 @@ var twitch_obj = {
         }
 
         if (options.identity && message === '!scooby') {
-          if (userstate['display-name'] == "Chenzorama" || userstate['mod']) {
+          //if (userstate['display-name'] == "Chenzorama" || userstate['mod']) {
             headShot_OBJ.toggleCam("skully");
             client.say(channel, 'Switching To Scooby Level Skull');
-          } 
+          //} 
         }
 
         if (options.identity && message === '!headshot') {
-          if (userstate['display-name'] == "Chenzorama" || userstate['mod']) {
+          //if (userstate['display-name'] == "Chenzorama" || userstate['mod']) {
             headShot_OBJ.toggleCam("headshot");
             client.say(channel, 'Switching To Chenzo Headshot');
-          } 
+          //} 
         }
 
         if (options.identity && message === '!3') {
-          if (userstate['display-name'] == "Chenzorama" || userstate['mod']) {
-            console.log("3");
+          //if (userstate['display-name'] == "Chenzorama" || userstate['mod']) {
+            //console.log("3");
             var myAudio = document.getElementById('um3');
             myAudio.play();
             client.say(channel, '3');
-          } 
+          //} 
+        }
+
+        if (options.identity && message === '!digs') {
+            var myAudio = document.getElementById('digs');
+            myAudio.play();
+            client.say(channel, 'digs');
+        }
+
+        if (options.identity && message === '!test') {
+            console.log("bot try");
+            //bot.say(channel, '3');
         }
   
         
