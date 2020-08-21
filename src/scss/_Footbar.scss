@@ -38,4 +38,34 @@ footer {
             }
         }
     }
+
+
+    .tchat {
+        position: absolute;
+        right: 0px;
+        bottom: 0px;
+        color: white;
+        font-variant: small-caps;
+        font-size: 20px;
+        letter-spacing: 1px;
+        text-shadow: 2px 2px 2px #000000;
+
+        .aphrase {
+            right: -100%;
+            transition-property: right;
+            transition-duration: 15s;
+            transition-timing-function: linear;
+            position: relative;
+            display: inline-block;
+
+            .usr {
+                color: $gold_1;
+            }
+
+            &.scrolling {
+                //right: calc(1920px + 100%);
+                right: 1920px;
+            }
+        }
+    }
 }

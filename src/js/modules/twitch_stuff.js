@@ -2,6 +2,7 @@
 
 import TwitchJS from 'twitch-js';
 import configData from './../config.js';
+import chatScroller from './chat_scroller.js';
 
 var twitch_obj = {
 
@@ -105,9 +106,13 @@ var twitch_obj = {
         console.log(`Message "${message}" received from ${userstate['display-name']}`);
         console.log(userstate);
   
+        chatScroller.scrollIt(userstate['display-name'], message), userstate['id'];
   
         // Do not repond if the message is from the connected identity.
         if (self) return;
+
+
+
         
         if (options.identity && message.substring(0, 8) === '!addcrew') {
           if (userstate['display-name'] == "Chenzorama" || userstate['mod']) {
