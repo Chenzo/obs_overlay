@@ -172,6 +172,12 @@ var twitch_obj = {
             myAudio.play();
             client.say(channel, 'digs');
         }
+        
+        if (options.identity && message === '!babyshark') {
+          var myAudio = document.getElementById('babyshark');
+          myAudio.play();
+          client.say(channel, 'baby shark');
+        }
 
         if (options.identity && message === '!test') {
             console.log("bot try");

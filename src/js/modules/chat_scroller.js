@@ -10,7 +10,7 @@
 
 var chatScroller = {
 
-    PrevID = "none",
+    //PrevID = "none",
 
     scrollIt: function(who, message, id) {
         console.log("BEEP BOOP");
