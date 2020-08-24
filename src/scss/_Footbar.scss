@@ -42,8 +42,9 @@ footer {
 
     .tchat {
         position: absolute;
-        right: 0px;
+        //right: 0px;
         bottom: 0px;
+        width: 100vw;
         color: white;
         font-variant: small-caps;
         font-size: 20px;
@@ -51,12 +52,15 @@ footer {
         text-shadow: 2px 2px 2px #000000;
 
         .aphrase {
-            right: -100%;
-            transition-property: right;
+            left: calc(0px + 100%);
+            //right: 0px;
+            transition-property: left;
             transition-duration: 15s;
             transition-timing-function: linear;
-            position: relative;
+            position: absolute;
             display: inline-block;
+            bottom: 0px;
+            white-space: nowrap;
 
             .usr {
                 color: $gold_1;
@@ -64,7 +68,7 @@ footer {
 
             &.scrolling {
                 //right: calc(1920px + 100%);
-                right: 1920px;
+                left: calc(0px - 100%);
             }
         }
     }

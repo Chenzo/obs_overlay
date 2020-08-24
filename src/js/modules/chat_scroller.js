@@ -2,18 +2,14 @@
 
 /* window.chatScroller = (function(){ 
 
-
-    
-
 });
  */
 
 var chatScroller = {
 
-    //PrevID = "none",
+
 
     scrollIt: function(who, message, id) {
-        console.log("BEEP BOOP");
         console.log(who, message, id);
 
 
