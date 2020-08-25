@@ -30,6 +30,9 @@ window.chatScroller = (function(){
         newDiv.addEventListener('transitionend', () => {
             console.log('Transition ended');
             newDiv.remove();
+            if (document.getElementsByClassName("aphrase").length < 1) {
+                document.getElementById("latest_followers").classList.remove("hiding");
+            }
         });
 
 
@@ -53,6 +56,7 @@ window.chatScroller = (function(){
                 if (theLeft > 1920 && !lastDiv.classList.contains("scrolling")) {
                     if (prevLeft < 1890) { //1920 (get a little more sapce)
                         lastDiv.classList.add("scrolling");
+                        document.getElementById("latest_followers").classList.add("hiding");
                     } else {
                         console.log("broke loop");
                         break;
@@ -61,7 +65,7 @@ window.chatScroller = (function(){
             }
         }
 
-        document.getElementById("numoutput").innerHTML= checkTimer;
+        //document.getElementById("numoutput").innerHTML= checkTimer;
         checkTimer++;
         recId = requestAnimationFrame(checkDivScroll);
         
