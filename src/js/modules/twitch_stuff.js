@@ -2,6 +2,7 @@
 
 import TwitchJS from 'twitch-js';
 import configData from './../config.js';
+import './chat_scroller.js';
 
 var twitch_obj = {
 
@@ -93,21 +94,29 @@ var twitch_obj = {
         }
       };
 
-
       /* const bot = new TwitchJS.client({
         username: "nightbot",
         password: configData.OAUTH
       });
    */
+
+      chatScroller.init();
+
       const client = new TwitchJS.client(options);
   
       client.on('chat', (channel, userstate, message, self) => {
         console.log(`Message "${message}" received from ${userstate['display-name']}`);
         console.log(userstate);
+        console.log("client-nonce - " +  userstate['client-nonce'])
+        chatScroller.scrollIt(userstate['display-name'], message, userstate['client-nonce']);
   
-  
+
+        
         // Do not repond if the message is from the connected identity.
         if (self) return;
+
+
+
         
         if (options.identity && message.substring(0, 8) === '!addcrew') {
           if (userstate['display-name'] == "Chenzorama" || userstate['mod']) {
@@ -166,6 +175,12 @@ var twitch_obj = {
             var myAudio = document.getElementById('digs');
             myAudio.play();
             client.say(channel, 'digs');
+        }
+        
+        if (options.identity && message === '!babyshark') {
+          var myAudio = document.getElementById('babyshark');
+          myAudio.play();
+          client.say(channel, 'baby shark');
         }
 
         if (options.identity && message === '!test') {
