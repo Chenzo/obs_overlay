@@ -1,26 +1,17 @@
 
 
-/* window.chatScroller = (function(){ 
-
-});
- */
-
-var chatScroller = {
+window.chatScroller = (function(){ 
 
 
+    var checkTimer = 0;
+    var recId = 0;
 
-    scrollIt: function(who, message, id) {
+    var scrollIt = function(who, message, id) {
         console.log(who, message, id);
-
-
-        if (this.PrevID != "none") {
-            console.log("PREVIOUS"); 
-            console.log(this.PrevID);
-        }
 
         var newDiv = document.createElement("div"); 
         newDiv.id = id;
-        this.PrevID = id;
+        //this.PrevID = id;
         newDiv.classList.add("aphrase");
 
         var span = document.createElement('span');
@@ -32,12 +23,8 @@ var chatScroller = {
 
         newDiv.appendChild(span);
         newDiv.appendChild(span2);
-        /* var newContent = document.createTextNode("Hi there and greetings!"); 
-        // add the text node to the newly created div
-        newDiv.appendChild(newContent);  */
 
         var currentDiv = document.getElementById("chatSpace"); 
-        //document.body.insertBefore(newDiv, currentDiv); 
         currentDiv.appendChild(newDiv);
 
         newDiv.addEventListener('transitionend', () => {
@@ -45,15 +32,52 @@ var chatScroller = {
             newDiv.remove();
         });
 
-        setTimeout(function(){
-            console.log("startscrolling");
-            newDiv.classList.add("scrolling");
-        }, 200);
-        
 
-        /* var crewDiv = document.getElementById("phrase");
-        crewDiv.classList.add("scrolling"); */
+    };
+
+    var checkDivScroll = function() {
+        var pendingLength = document.getElementsByClassName("aphrase").length;
+
+        if (pendingLength > 0) {
+            for (x=0; x<pendingLength; x++) {
+                //console.log(document.getElementsByClassName("aphrase")[x]);
+
+                //var lastDiv = document.getElementsByClassName("aphrase")[document.getElementsByClassName("aphrase").length - 1]
+                var lastDiv = document.getElementsByClassName("aphrase")[x];
+                theLeft = lastDiv.offsetLeft + lastDiv.offsetWidth;
+                var prevLeft = 0;
+                if (x > 0) {
+                    var prevDiv = document.getElementsByClassName("aphrase")[x - 1];
+                    prevLeft = prevDiv.offsetLeft + prevDiv.offsetWidth;
+                }
+                if (theLeft > 1920 && !lastDiv.classList.contains("scrolling")) {
+                    if (prevLeft < 1890) { //1920 (get a little more sapce)
+                        lastDiv.classList.add("scrolling");
+                    } else {
+                        console.log("broke loop");
+                        break;
+                    }
+                }
+            }
+        }
+
+        document.getElementById("numoutput").innerHTML= checkTimer;
+        checkTimer++;
+        recId = requestAnimationFrame(checkDivScroll);
+        
+    };
+
+    var init = function() {
+        console.log("checkDivScroll init");
+        recId = requestAnimationFrame(checkDivScroll);
     }
-}
-  
-module.exports = chatScroller;
+
+
+
+    return {
+        init : init,
+        scrollIt: scrollIt
+    };
+
+
+})();  
