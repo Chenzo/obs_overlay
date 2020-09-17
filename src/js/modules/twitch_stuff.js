@@ -129,6 +129,27 @@ var twitch_obj = {
             client.say(channel, crewname + ' added as crew member!');
           } 
         }
+
+        if (options.identity && message.substring(0, 9) === '!sunkboat') {
+          if (userstate['display-name'] == "Chenzorama" || userstate['mod']) {
+            const boatType = message.substr(10);//.split(" ")[0];
+            console.log("sunksunk");
+
+            if (boatType == "galleon" || boatType == "sloop" || boatType == "brig" ) {
+              console.log("ADDING SINKING BOAT");
+              var sunksDiv = document.getElementById("sunks"); 
+              var boat = document.createElement('div');
+              var type = boatType;
+              boat.classList.add("ship-sinker","sink");
+              boat.innerHTML = '<div class="aship float '+ type + '"><img src="images/sunk/'+type+'.png" /></div>';
+              sunksDiv.appendChild(boat);
+              client.say(channel, boatType + ' sunk!');
+
+            }
+
+            
+          } 
+        }
   
         if (options.identity && message.substring(0, 11) === '!removecrew') {
           if (userstate['display-name'] == "Chenzorama" || userstate['mod']) {
@@ -182,6 +203,8 @@ var twitch_obj = {
           myAudio.play();
           client.say(channel, 'baby shark');
         }
+
+        
 
         if (options.identity && message === '!test') {
             console.log("bot try");
