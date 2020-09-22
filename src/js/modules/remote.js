@@ -8,7 +8,7 @@ console.log(configData.server, configData.server_port);
 
 
 
-var socket = io("https://fierce-springs-20115.herokuapp.com/");
+var socket = io(configData.server);
 
 
 socket.on('connect_error', handleNoConnect);
