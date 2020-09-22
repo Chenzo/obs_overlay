@@ -230,7 +230,9 @@ var twitch_obj = {
       console.log('---Twitch Activated');
     },
 
-
+    cansee: function() {
+      console.log("can you see me?");
+    },
 
 
     init: function() {
