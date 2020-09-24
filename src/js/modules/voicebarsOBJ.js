@@ -4,13 +4,11 @@ headShotOBJ = require('./headShotOBJ');
 
 voicebarsObj = {
 
-
     rafID: 0,
     audioContext: null,
     analyser: null,
     dataArray: null,
     source: null,
-    
     canvas: null,
     canvas2: null,
     ctx: null,
@@ -30,7 +28,7 @@ voicebarsObj = {
         fftSize = 128;
         smoothingTimeConstant = 0.8;
 
-        console.log("headShotOBJ.headShotType: " + headShotOBJ.headShotType);
+        //console.log("headShotOBJ.headShotType: " + headShotOBJ.headShotType);
 
         if (headShotOBJ.headShotType == 2) {
             //skull

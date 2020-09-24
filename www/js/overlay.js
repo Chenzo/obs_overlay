@@ -9979,7 +9979,9 @@ chatScrollerOBJ = {
 
 module.exports = { 
     init: chatScrollerOBJ.init,
-    scrollIt: chatScrollerOBJ.scrollIt
+    scrollIt: chatScrollerOBJ.scrollIt,
+    checkDivScroll: chatScrollerOBJ.checkDivScroll,
+    start: chatScrollerOBJ.start
 };
 
 
@@ -10046,14 +10048,13 @@ module.exports = {
 
 const configData = __webpack_require__(/*! ./../config.js */ "./src/js/config.js");
 const TwitchJS = __webpack_require__(/*! twitch-js */ "./node_modules/twitch-js/lib/index.js");
-const chatScrollerOBJ = __webpack_require__(/*! ./chatScrollerOBJ.js */ "./src/js/modules/chatScrollerOBJ.js");
+chatScrollerOBJ = __webpack_require__(/*! ./chatScrollerOBJ.js */ "./src/js/modules/chatScrollerOBJ.js");
 const headShotOBJ = __webpack_require__(/*! ./headShotOBJ.js */ "./src/js/modules/headShotOBJ.js");
 
 twitchChatOBJ = {
 
     init: function() {
         console.log('Activating Twitch');
-        console.log(headShotOBJ.headShotType);
         const options = {
             channels: ["#chenzorama"],
             connection: {
@@ -10076,8 +10077,8 @@ twitchChatOBJ = {
 
         client.on('chat', (channel, userstate, message, self) => {
             console.log(`Message "${message}" received from ${userstate['display-name']}`);
-            console.log(userstate);
-            console.log("client-nonce - " +  userstate['client-nonce'])
+            //console.log(userstate);
+            //console.log("client-nonce - " +  userstate['client-nonce'])
 
             chatScrollerOBJ.scrollIt(userstate['display-name'], message, userstate['client-nonce']);
 
@@ -10137,7 +10138,6 @@ twitchChatOBJ = {
             if (options.identity && message === '!scooby') {
                 //if (userstate['display-name'] == "Chenzorama" || userstate['mod']) {
                 headShotOBJ.toggleCam("skully");
-                console.log(headShotOBJ.headShotType);
                 client.say(channel, 'Switching To Scooby Level Skull');
                 //} 
             }
@@ -10151,7 +10151,6 @@ twitchChatOBJ = {
 
             if (options.identity && message === '!3') {
                 //if (userstate['display-name'] == "Chenzorama" || userstate['mod']) {
-                //console.log("3");
                 var myAudio = document.getElementById('um3');
                 myAudio.play();
                 client.say(channel, '3');
@@ -10173,7 +10172,6 @@ twitchChatOBJ = {
         
 
             if (options.identity && message === '!test') {
-                console.log("bot try");
                 //bot.say(channel, '3');
             }
 
@@ -10243,9 +10241,9 @@ twitchOBJ = {
       })
       .then(response => response.json())
       .then(data => (
-        console.log(data),
+        //console.log(data),
         twitchOBJ.accessToken = data.access_token,
-        console.log("twitchOBJ.accessToken: " + twitchOBJ.accessToken),
+        //console.log("twitchOBJ.accessToken: " + twitchOBJ.accessToken),
         this.getLatestFollowers())
       )
       .catch(error => 
@@ -10256,8 +10254,7 @@ twitchOBJ = {
 
     getLatestFollowers: function() {
 
-        console.log("VINCE VINCE VINCE");
-        console.log(twitchOBJ.accessToken);
+        //console.log(twitchOBJ.accessToken);
   
         fetch('https://api.twitch.tv/helix/users/follows?to_id=' + configData.userID, {
           method: 'GET',
@@ -10322,13 +10319,11 @@ headShotOBJ = __webpack_require__(/*! ./headShotOBJ */ "./src/js/modules/headSho
 
 voicebarsObj = {
 
-
     rafID: 0,
     audioContext: null,
     analyser: null,
     dataArray: null,
     source: null,
-    
     canvas: null,
     canvas2: null,
     ctx: null,
@@ -10348,7 +10343,7 @@ voicebarsObj = {
         fftSize = 128;
         smoothingTimeConstant = 0.8;
 
-        console.log("headShotOBJ.headShotType: " + headShotOBJ.headShotType);
+        //console.log("headShotOBJ.headShotType: " + headShotOBJ.headShotType);
 
         if (headShotOBJ.headShotType == 2) {
             //skull
@@ -10570,7 +10565,9 @@ chatScrollerOBJ.init();
 
 twitchChatOBJ.init();
 
+//chatScrollerOBJ.start();
 
+//REMOTE
 
 /***/ }),
 

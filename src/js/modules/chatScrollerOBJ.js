@@ -85,5 +85,7 @@ chatScrollerOBJ = {
 
 module.exports = { 
     init: chatScrollerOBJ.init,
-    scrollIt: chatScrollerOBJ.scrollIt
+    scrollIt: chatScrollerOBJ.scrollIt,
+    checkDivScroll: chatScrollerOBJ.checkDivScroll,
+    start: chatScrollerOBJ.start
 };

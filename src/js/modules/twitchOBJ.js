@@ -29,9 +29,9 @@ twitchOBJ = {
       })
       .then(response => response.json())
       .then(data => (
-        console.log(data),
+        //console.log(data),
         twitchOBJ.accessToken = data.access_token,
-        console.log("twitchOBJ.accessToken: " + twitchOBJ.accessToken),
+        //console.log("twitchOBJ.accessToken: " + twitchOBJ.accessToken),
         this.getLatestFollowers())
       )
       .catch(error => 
@@ -42,8 +42,7 @@ twitchOBJ = {
 
     getLatestFollowers: function() {
 
-        console.log("VINCE VINCE VINCE");
-        console.log(twitchOBJ.accessToken);
+        //console.log(twitchOBJ.accessToken);
   
         fetch('https://api.twitch.tv/helix/users/follows?to_id=' + configData.userID, {
           method: 'GET',

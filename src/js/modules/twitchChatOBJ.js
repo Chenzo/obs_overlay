@@ -2,14 +2,13 @@
 
 const configData = require('./../config.js');
 const TwitchJS = require('twitch-js');
-const chatScrollerOBJ = require('./chatScrollerOBJ.js');
+chatScrollerOBJ = require('./chatScrollerOBJ.js');
 const headShotOBJ = require('./headShotOBJ.js');
 
 twitchChatOBJ = {
 
     init: function() {
         console.log('Activating Twitch');
-        console.log(headShotOBJ.headShotType);
         const options = {
             channels: ["#chenzorama"],
             connection: {
@@ -32,8 +31,8 @@ twitchChatOBJ = {
 
         client.on('chat', (channel, userstate, message, self) => {
             console.log(`Message "${message}" received from ${userstate['display-name']}`);
-            console.log(userstate);
-            console.log("client-nonce - " +  userstate['client-nonce'])
+            //console.log(userstate);
+            //console.log("client-nonce - " +  userstate['client-nonce'])
 
             chatScrollerOBJ.scrollIt(userstate['display-name'], message, userstate['client-nonce']);
 
@@ -93,7 +92,6 @@ twitchChatOBJ = {
             if (options.identity && message === '!scooby') {
                 //if (userstate['display-name'] == "Chenzorama" || userstate['mod']) {
                 headShotOBJ.toggleCam("skully");
-                console.log(headShotOBJ.headShotType);
                 client.say(channel, 'Switching To Scooby Level Skull');
                 //} 
             }
@@ -107,7 +105,6 @@ twitchChatOBJ = {
 
             if (options.identity && message === '!3') {
                 //if (userstate['display-name'] == "Chenzorama" || userstate['mod']) {
-                //console.log("3");
                 var myAudio = document.getElementById('um3');
                 myAudio.play();
                 client.say(channel, '3');
@@ -129,7 +126,6 @@ twitchChatOBJ = {
         
 
             if (options.identity && message === '!test') {
-                console.log("bot try");
                 //bot.say(channel, '3');
             }
 
