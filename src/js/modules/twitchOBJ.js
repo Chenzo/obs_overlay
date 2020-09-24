@@ -82,11 +82,10 @@ twitchOBJ = {
         twitchOBJ.getAccessToken();
         //initTwitch();
     }
-
 }
 
 
 
 module.exports = { 
-    init: twitchOBJ.init,
+    init: twitchOBJ.init
 };

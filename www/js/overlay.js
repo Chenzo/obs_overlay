@@ -9987,6 +9987,76 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./src/js/modules/displayOBJ.js":
+/*!**************************************!*\
+  !*** ./src/js/modules/displayOBJ.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+
+
+
+displayOBJ = {
+
+    addCrew: function(crewMember) {
+        console.log("ADD CREW : " + crewMember);
+        var crewDiv = document.getElementById(crewMember);
+        crewDiv.classList.add("active");
+        //client.say(channel, crewMember + ' added as crew member!');
+    },
+
+    removeCrew: function(crewMember) {
+        console.log("REMOVE CREW : " + crewMember);
+        var crewDiv = document.getElementById(crewMember);
+        crewDiv.classList.remove("active");
+        //client.say(channel, crewMember + ' added as crew member!');
+    },
+
+    playAudio: function(audioName) {
+        if (audioName == "3") {
+            var myAudio = document.getElementById('um3');
+            myAudio.play();
+            //client.say(channel, '3');
+        } else if (audioName == "digs") {
+            var myAudio = document.getElementById('digs');
+            myAudio.play();
+        } else if (audioName == "babyshark") {
+            var myAudio = document.getElementById('babyshark');
+            myAudio.play();
+        } 
+    },
+
+    addShipSunk: function(shipType) {
+        if (shipType == "galleon" || shipType == "sloop" || shipType == "brig" ) {
+            console.log("ADDING SINKING BOAT");
+            var sunksDiv = document.getElementById("sunks"); 
+            var boat = document.createElement('div');
+            var type = shipType;
+            boat.classList.add("ship-sinker","sink");
+            boat.innerHTML = '<div class="aship float '+ type + '"><img src="images/sunk/'+type+'.png" /></div>';
+            sunksDiv.appendChild(boat);
+            //client.say(channel, shipType + ' sunk!');
+        }
+    }
+
+
+}
+
+
+
+
+
+module.exports = { 
+    addCrew: displayOBJ.addCrew,
+    removeCrew: displayOBJ.removeCrew,
+    playAudio: displayOBJ.playAudio,
+    addShipSunk: displayOBJ.addShipSunk
+};
+
+
+/***/ }),
+
 /***/ "./src/js/modules/headShotOBJ.js":
 /*!***************************************!*\
   !*** ./src/js/modules/headShotOBJ.js ***!
@@ -10037,6 +10107,87 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./src/js/modules/remoteOBJ.js":
+/*!*************************************!*\
+  !*** ./src/js/modules/remoteOBJ.js ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+const configData = __webpack_require__(/*! ./../config.js */ "./src/js/config.js");
+const displayOBJ = __webpack_require__(/*! ./displayOBJ.js */ "./src/js/modules/displayOBJ.js");
+
+remoteOBJ = {
+
+    name: 'Panel Host',
+    room: 'panel_remote',
+    socket: null,
+
+
+    init: function() {
+        remoteOBJ.socket = io(configData.server);
+        remoteOBJ.socket.on('connect_error', remoteOBJ.handleNoConnect);
+        remoteOBJ.socket.on("connect", remoteOBJ.onConnect);
+        remoteOBJ.socket.on("message", remoteOBJ.onMessage);
+    },
+
+    handleNoConnect: function(err) {
+        console.log('connection error');
+        console.log(err)
+    },
+
+    onConnect: function() {
+        console.log("Connected to Socket I/O Server!");
+        remoteOBJ.socket.emit('joinRoom', {
+            name: remoteOBJ.name,
+            room: remoteOBJ.room
+        });
+    },
+
+    onMessage: function(message) {
+        console.log("- message: " + message.text);
+        var cargs, command;
+        var isDo = message.text.substr(0, 3);//.split(" ")[0];
+        if (isDo == "do:") {
+            var splitMessage = message.text.substr(4).split(" ");
+            command = splitMessage[0];
+            if (splitMessage.length > 0) {
+                cargs = splitMessage[1];
+            }
+            
+            if (command == "addcrew") {
+                displayOBJ.addCrew(cargs);
+            }
+
+            if (command == "playaudio") {
+                displayOBJ.playAudio(cargs);
+            }
+
+            if (command == "removecrew") {
+                displayOBJ.removeCrew(cargs);
+            }
+
+            if (command == "shipsunk") {
+                displayOBJ.addShipSunk(cargs);
+            }
+
+            
+
+        }
+
+        if (message.text == "soemthing") {
+        }
+    }
+
+};
+
+module.exports = { 
+    init: remoteOBJ.init
+};
+
+
+/***/ }),
+
 /***/ "./src/js/modules/twitchChatOBJ.js":
 /*!*****************************************!*\
   !*** ./src/js/modules/twitchChatOBJ.js ***!
@@ -10066,12 +10217,6 @@ twitchChatOBJ = {
             }
         };
 
-        /* const bot = new TwitchJS.client({
-            username: "nightbot",
-            password: configData.OAUTH
-            });
-        */
-
 
         const client = new TwitchJS.client(options);
 
@@ -10088,52 +10233,27 @@ twitchChatOBJ = {
 
             if (options.identity && message.substring(0, 8) === '!addcrew') {
                 if (userstate['display-name'] == "Chenzorama" || userstate['mod']) {
-                const crewname = message.substr(9);//.split(" ")[0];
-
-                var crewDiv = document.getElementById(crewname);
-                crewDiv.classList.add("active");
-
-                client.say(channel, crewname + ' added as crew member!');
+                    const crewname = message.substr(9);//.split(" ")[0];
+                    displayOBJ.addCrew(crewname);
+                } 
+            }
+            if (options.identity && message.substring(0, 11) === '!removecrew') {
+                if (userstate['display-name'] == "Chenzorama" || userstate['mod']) {
+                    const crewname = message.substring(12);
+                    displayOBJ.removeCrew(crewname);
                 } 
             }
 
             if (options.identity && message.substring(0, 9) === '!sunkboat') {
                 if (userstate['display-name'] == "Chenzorama" || userstate['mod']) {
-                const boatType = message.substr(10);//.split(" ")[0];
-                console.log("sunksunk");
-
+                    const boatType = message.substr(10);//.split(" ")[0];
                     if (boatType == "galleon" || boatType == "sloop" || boatType == "brig" ) {
                         console.log("ADDING SINKING BOAT");
-                        var sunksDiv = document.getElementById("sunks"); 
-                        var boat = document.createElement('div');
-                        var type = boatType;
-                        boat.classList.add("ship-sinker","sink");
-                        boat.innerHTML = '<div class="aship float '+ type + '"><img src="images/sunk/'+type+'.png" /></div>';
-                        sunksDiv.appendChild(boat);
-                        client.say(channel, boatType + ' sunk!');
-
+                        displayOBJ.addShipSunk(boatType);
                     }
-                
                 } 
             }
 
-            if (options.identity && message.substring(0, 11) === '!removecrew') {
-                if (userstate['display-name'] == "Chenzorama" || userstate['mod']) {
-                console.log("removing")
-                const crewname = message.substring(12);
-                //const who = this.removeCrew(crewInt);
-
-                var crewDiv = document.getElementById(crewname);
-                crewDiv.classList.remove("active");
-
-                client.say(channel, crewname + ' removed as crew member!');
-                } 
-            }
-
-            if (options.identity && message === '!command') {
-                // If an identity was provided, respond in channel with message.
-                client.say(channel, 'Hello world!');
-            }
 
             if (options.identity && message === '!scooby') {
                 //if (userstate['display-name'] == "Chenzorama" || userstate['mod']) {
@@ -10150,23 +10270,15 @@ twitchChatOBJ = {
             }
 
             if (options.identity && message === '!3') {
-                //if (userstate['display-name'] == "Chenzorama" || userstate['mod']) {
-                var myAudio = document.getElementById('um3');
-                myAudio.play();
-                client.say(channel, '3');
-                //} 
+                displayOBJ.playAudio("3");
             }
 
             if (options.identity && message === '!digs') {
-                var myAudio = document.getElementById('digs');
-                myAudio.play();
-                client.say(channel, 'digs');
+                displayOBJ.playAudio("digs");
             }
         
             if (options.identity && message === '!babyshark') {
-                var myAudio = document.getElementById('babyshark');
-                myAudio.play();
-                client.say(channel, 'baby shark');
+                displayOBJ.playAudio("babyshark");
             }
 
         
@@ -10294,13 +10406,12 @@ twitchOBJ = {
         twitchOBJ.getAccessToken();
         //initTwitch();
     }
-
 }
 
 
 
 module.exports = { 
-    init: twitchOBJ.init,
+    init: twitchOBJ.init
 };
 
 
@@ -10551,8 +10662,8 @@ const twitchChatOBJ = __webpack_require__(/*! ./modules/twitchChatOBJ */ "./src/
 const chatScrollerOBJ = __webpack_require__(/*! ./modules/chatScrollerOBJ */ "./src/js/modules/chatScrollerOBJ.js");
 const headShotOBJ = __webpack_require__(/*! ./modules/headShotOBJ */ "./src/js/modules/headShotOBJ.js");
 const voicebarsOBJ = __webpack_require__(/*! ./modules/voicebarsOBJ */ "./src/js/modules/voicebarsOBJ.js");
-
-
+const remoteOBJ = __webpack_require__(/*! ./modules/remoteOBJ */ "./src/js/modules/remoteOBJ.js");
+const displayOBJ = __webpack_require__(/*! ./modules/displayOBJ */ "./src/js/modules/displayOBJ.js");
 
 
 headShotOBJ.init();
@@ -10565,9 +10676,9 @@ chatScrollerOBJ.init();
 
 twitchChatOBJ.init();
 
-//chatScrollerOBJ.start();
+remoteOBJ.init();
 
-//REMOTE
+
 
 /***/ }),
 
