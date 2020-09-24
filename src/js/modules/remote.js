@@ -1,37 +1,51 @@
-
-var name = 'Panel Host';
-var room = 'panel_remote';
 import configData from './../config.js';
 
-console.log("turning on socket.");
-console.log(configData.server, configData.server_port);
+var remote_obj = (function(){
 
+    var name = 'Panel Host';
+    var room = 'panel_remote';
+    var socket;
 
+    console.log("turning on socket.");
+    console.log(configData.server, configData.server_port);
 
-var socket = io(configData.server);
+    function init() {
+        socket = io(configData.server);
+        socket.on('connect_error', handleNoConnect);
+        socket.on("connect", onConnect);
+        socket.on("message", onMessage);
+    }
 
+    function handleNoConnect(err) {
+        console.log('connection error');
+        console.log(err)
+    }
 
-socket.on('connect_error', handleNoConnect);
+    function onConnect() {
+        console.log("Connected to Socket I/O Server!");
+        socket.emit('joinRoom', {
+            name: name,
+            room: room
+        });
+    }
 
-function handleNoConnect(err) {
-    console.log('connection error');
-    console.log(err)
-}
+    function onMessage(message) {
+        console.log("message: " + message.text);
+    
+        console.log("GOT IT!");
 
-socket.on("connect", function() {
-console.log("Connected to Socket I/O Server!");
-    socket.emit('joinRoom', {
-        name: name,
-        room: room
-    });
-});
+        if (twitch_obj) {
+            twitch_obj.cansee();
+        }
+    }
 
-socket.on("message", function(message) {
-    console.log("message: " + message.text);
+    return {
+        init: init
+    };
+}());
 
-    console.log("GOT IT!");
+module.exports = { 
+    init: remote_obj.init
+};
 
-    /* if (twitch_obj) {
-        twitch_obj.cansee();
-    } */
-});
+//remote_obj.init();

@@ -1,12 +1,11 @@
 
 
-window.chatScroller = (function(){ 
+chatScrollerOBJ = {
 
+    checkTimer: 0,
+    recId: 0,
 
-    var checkTimer = 0;
-    var recId = 0;
-
-    var scrollIt = function(who, message, id) {
+    scrollIt: function(who, message, id) {
         console.log(who, message, id);
 
         var newDiv = document.createElement("div"); 
@@ -36,9 +35,9 @@ window.chatScroller = (function(){
         });
 
 
-    };
+    },
 
-    var checkDivScroll = function() {
+    checkDivScroll: function() {
         var pendingLength = document.getElementsByClassName("aphrase").length;
 
         if (pendingLength > 0) {
@@ -66,22 +65,25 @@ window.chatScroller = (function(){
         }
 
         //document.getElementById("numoutput").innerHTML= checkTimer;
-        checkTimer++;
-        recId = requestAnimationFrame(checkDivScroll);
+        chatScrollerOBJ.addcheckTimer++;
+        chatScrollerOBJ.recId = requestAnimationFrame(chatScrollerOBJ.checkDivScroll);
         
-    };
+    },
 
-    var init = function() {
+    init: function() {
         console.log("checkDivScroll init");
-        recId = requestAnimationFrame(checkDivScroll);
+        chatScrollerOBJ.recId = requestAnimationFrame(chatScrollerOBJ.checkDivScroll);
+    },
+
+    start: function() {
+        chatScrollerOBJ.recId = requestAnimationFrame(chatScrollerOBJ.checkDivScroll);
     }
 
+}
 
 
-    return {
-        init : init,
-        scrollIt: scrollIt
-    };
 
-
-})();  
+module.exports = { 
+    init: chatScrollerOBJ.init,
+    scrollIt: chatScrollerOBJ.scrollIt
+};
