@@ -9877,6 +9877,7 @@ var configData = {
   OAUTH: 'oauth:xkz8a8qk4f5sjm25wldsowxxwz5rnl',
   userID: '58652316',
   server: 'https://fierce-springs-20115.herokuapp.com/',
+  //server: 'http://localhost:3002/',
   server_port: 3002
 }
 
@@ -10010,7 +10011,16 @@ displayOBJ = {
         console.log("REMOVE CREW : " + crewMember);
         var crewDiv = document.getElementById(crewMember);
         crewDiv.classList.remove("active");
-        //client.say(channel, crewMember + ' added as crew member!');
+        //client.playaudiosay(channel, crewMember + ' added as crew member!');
+    },
+
+    getCrew: function() {
+        var crewlist = document.getElementById("crew").querySelectorAll(".crewmate.active"), i; 
+        var crewArray = [];
+        for (i = 0; i < crewlist.length; ++i) {
+        crewArray.push(crewlist[i].id);
+        }
+        return crewArray;
     },
 
     playAudio: function(audioName) {
@@ -10023,6 +10033,9 @@ displayOBJ = {
             myAudio.play();
         } else if (audioName == "babyshark") {
             var myAudio = document.getElementById('babyshark');
+            myAudio.play();
+        } else if (audioName == "sharkbait") {
+            var myAudio = document.getElementById('sharkbait');
             myAudio.play();
         } 
     },
@@ -10049,6 +10062,7 @@ displayOBJ = {
 
 module.exports = { 
     addCrew: displayOBJ.addCrew,
+    getCrew: displayOBJ.getCrew,
     removeCrew: displayOBJ.removeCrew,
     playAudio: displayOBJ.playAudio,
     addShipSunk: displayOBJ.addShipSunk
@@ -10125,6 +10139,7 @@ remoteOBJ = {
 
 
     init: function() {
+        console.log("SERVER: " + configData.server);
         remoteOBJ.socket = io(configData.server);
         remoteOBJ.socket.on('connect_error', remoteOBJ.handleNoConnect);
         remoteOBJ.socket.on("connect", remoteOBJ.onConnect);
@@ -10137,7 +10152,7 @@ remoteOBJ = {
     },
 
     onConnect: function() {
-        console.log("Connected to Socket I/O Server!");
+        console.log("Connected to Socket I/O Server!!!");
         remoteOBJ.socket.emit('joinRoom', {
             name: remoteOBJ.name,
             room: remoteOBJ.room
@@ -10153,6 +10168,15 @@ remoteOBJ = {
             command = splitMessage[0];
             if (splitMessage.length > 0) {
                 cargs = splitMessage[1];
+            }
+
+            if (command == "getcrew") {
+                console.log("Send Crew Status");
+                msg = "current crew: " + displayOBJ.getCrew();
+                remoteOBJ.socket.emit("message", {
+                    text: msg,
+                    name: remoteOBJ.name
+                });
             }
             
             if (command == "addcrew") {

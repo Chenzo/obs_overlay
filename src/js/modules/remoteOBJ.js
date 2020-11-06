@@ -9,6 +9,7 @@ remoteOBJ = {
 
 
     init: function() {
+        console.log("SERVER: " + configData.server);
         remoteOBJ.socket = io(configData.server);
         remoteOBJ.socket.on('connect_error', remoteOBJ.handleNoConnect);
         remoteOBJ.socket.on("connect", remoteOBJ.onConnect);
@@ -21,7 +22,7 @@ remoteOBJ = {
     },
 
     onConnect: function() {
-        console.log("Connected to Socket I/O Server!");
+        console.log("Connected to Socket I/O Server!!!");
         remoteOBJ.socket.emit('joinRoom', {
             name: remoteOBJ.name,
             room: remoteOBJ.room
@@ -37,6 +38,15 @@ remoteOBJ = {
             command = splitMessage[0];
             if (splitMessage.length > 0) {
                 cargs = splitMessage[1];
+            }
+
+            if (command == "getcrew") {
+                console.log("Send Crew Status");
+                msg = "current crew: " + displayOBJ.getCrew();
+                remoteOBJ.socket.emit("message", {
+                    text: msg,
+                    name: remoteOBJ.name
+                });
             }
             
             if (command == "addcrew") {

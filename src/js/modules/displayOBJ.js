@@ -14,7 +14,16 @@ displayOBJ = {
         console.log("REMOVE CREW : " + crewMember);
         var crewDiv = document.getElementById(crewMember);
         crewDiv.classList.remove("active");
-        //client.say(channel, crewMember + ' added as crew member!');
+        //client.playaudiosay(channel, crewMember + ' added as crew member!');
+    },
+
+    getCrew: function() {
+        var crewlist = document.getElementById("crew").querySelectorAll(".crewmate.active"), i; 
+        var crewArray = [];
+        for (i = 0; i < crewlist.length; ++i) {
+        crewArray.push(crewlist[i].id);
+        }
+        return crewArray;
     },
 
     playAudio: function(audioName) {
@@ -27,6 +36,9 @@ displayOBJ = {
             myAudio.play();
         } else if (audioName == "babyshark") {
             var myAudio = document.getElementById('babyshark');
+            myAudio.play();
+        } else if (audioName == "sharkbait") {
+            var myAudio = document.getElementById('sharkbait');
             myAudio.play();
         } 
     },
@@ -53,6 +65,7 @@ displayOBJ = {
 
 module.exports = { 
     addCrew: displayOBJ.addCrew,
+    getCrew: displayOBJ.getCrew,
     removeCrew: displayOBJ.removeCrew,
     playAudio: displayOBJ.playAudio,
     addShipSunk: displayOBJ.addShipSunk
