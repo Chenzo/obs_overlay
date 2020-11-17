@@ -65,6 +65,13 @@ twitchChatOBJ = {
                 //} 
             }
 
+            if (options.identity && message === '!skeletor') {
+                if (userstate['display-name'] == "Chenzorama" || userstate['mod']) {
+                headShotOBJ.toggleCam("skeletor");
+                client.say(channel, 'Curse You Heman');
+                } 
+            }
+
             if (options.identity && message === '!headshot') {
                 //if (userstate['display-name'] == "Chenzorama" || userstate['mod']) {
                 headShotOBJ.toggleCam("headshot");

@@ -10089,14 +10089,17 @@ headShotOBJ = {
         //console.log("-- headshot toggle cam: " + hType);
 
         if(hType == "skully") {
-            document.getElementById("headshot").classList.remove("headshot");
+            document.getElementById("headshot").classList.remove("headshot", "skeletor");
             document.getElementById("headshot").classList.add("skully");
             headShotOBJ.headShotType = 2;
             voicebarsOBJ.restart();
             //console.log("set to skully");
+        } else if (hType == "skeletor") {
+            document.getElementById("headshot").classList.remove("headshot", "skully");
+            document.getElementById("headshot").classList.add("skeletor");
         } else if (hType == "headshot") {
             document.getElementById("headshot").classList.add("headshot");
-            document.getElementById("headshot").classList.remove("skully");
+            document.getElementById("headshot").classList.remove("skully", "skeletor");
             headShotOBJ.headShotType = 1;
             voicebarsOBJ.restart();
             //console.log("set to headshot");
@@ -10284,6 +10287,13 @@ twitchChatOBJ = {
                 headShotOBJ.toggleCam("skully");
                 client.say(channel, 'Switching To Scooby Level Skull');
                 //} 
+            }
+
+            if (options.identity && message === '!skeletor') {
+                if (userstate['display-name'] == "Chenzorama" || userstate['mod']) {
+                headShotOBJ.toggleCam("skeletor");
+                client.say(channel, 'Curse You Heman');
+                } 
             }
 
             if (options.identity && message === '!headshot') {

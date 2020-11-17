@@ -77,6 +77,20 @@
         }
     }
 
+    .skeletor {
+        /* position: absolute;
+        width: 100%;
+        height: 100%;
+        left:150px; */
+        z-index: 10;
+
+        .jaw {
+            position: absolute;
+            left: 37px;
+            top: 80px;
+        }
+    }
+
     .skully {
         position: absolute;
         width: 100%;
@@ -188,12 +202,23 @@
 
 
     &.headshot {
-        .skully, .skull_bg, .skull_blk_bg {
+        .skully, .skull_bg, .skull_blk_bg, .skeletor {
             display: none;
         }
     }
 
+    &.skeletor {
+        .imageContainer {
+            video {
+                display: none;
+            }
+        }
+    }
+
     &.scooby {
+        .skeletor { 
+            display: none;
+        }
         .imageContainer {    
             video {
                 display: none; 
