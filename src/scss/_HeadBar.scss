@@ -86,7 +86,52 @@ header {
 	}
 }
 
+.alignment {
+    position: absolute;
+    z-index: 10;
+    top: 57px;
+    left: 63px;
+    width: 1074px;
+    border-bottom: solid #66240d 2px;
 
+    .evil {
+        position: absolute;
+        left: -90px;
+        top: -27px;
+    };
+    .good {
+        position: absolute;
+        right: -90px;
+        top: -27px;
+    }
+    .skullmeter {
+        position: absolute;
+        left: 50%;
+        top: -19px;
+        margin-left: -50px; /* 101 pixels wide */
+    }
+
+    .ticks {
+        position: absolute;
+        bottom: -10px;
+        display: flex;
+        width: 1060px;
+        justify-content: space-evenly;
+        display: none;
+        .onetick {
+            border-right: solid #c04f1f 2px;
+            height: 16px;
+            width: 10px;
+            display: inline-block;
+        }
+    }
+}
+
+
+/*
+#fa9a37
+#c04f1f
+*/
 
 .seperator {
 
