@@ -117,8 +117,9 @@ header {
         display: flex;
         width: 1060px;
         justify-content: space-evenly;
+        display: none;
         .onetick {
-            border-right: solid #fa9a37 2px;
+            border-right: solid #c04f1f 2px;
             height: 16px;
             width: 10px;
             display: inline-block;
