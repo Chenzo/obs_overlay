@@ -109,6 +109,10 @@ header {
         left: 50%;
         top: -19px;
         margin-left: -50px; /* 101 pixels wide */
+        transition-property: transform;
+        transition-timing-function: ease-in-out;
+        transition-duration: 2s;
+        transform: translateX(0px);
     }
 
     .ticks {

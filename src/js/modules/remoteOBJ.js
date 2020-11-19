@@ -65,7 +65,11 @@ remoteOBJ = {
                 displayOBJ.addShipSunk(cargs);
             }
 
-            
+            if (command == "setAlignment") {
+                console.log("here here");
+                displayOBJ.adjustAlignment(cargs);
+            }
+
 
         }
 
