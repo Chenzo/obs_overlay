@@ -10051,8 +10051,21 @@ displayOBJ = {
             sunksDiv.appendChild(boat);
             //client.say(channel, shipType + ' sunk!');
         }
-    }
+    },
 
+    adjustAlignment: function(amount) {
+        console.log("AMMOUJT" + amount);
+        var skullmeter = document.querySelector("#skullmeter");
+        var style = window.getComputedStyle(skullmeter);
+        var matrix = new WebKitCSSMatrix(style.webkitTransform);
+        var currentAlignment = matrix.m41;
+        //console.log('translateX: ', matrix.m41);
+
+        var newAlignment = parseInt(currentAlignment) + parseInt(amount);
+        console.log(newAlignment);
+        var val = newAlignment + "px";
+        skullmeter.style.transform = "translateX(" + val + ")";
+    }
 
 }
 
@@ -10065,7 +10078,8 @@ module.exports = {
     getCrew: displayOBJ.getCrew,
     removeCrew: displayOBJ.removeCrew,
     playAudio: displayOBJ.playAudio,
-    addShipSunk: displayOBJ.addShipSunk
+    addShipSunk: displayOBJ.addShipSunk,
+    adjustAlignment: displayOBJ.adjustAlignment
 };
 
 
@@ -10195,7 +10209,11 @@ remoteOBJ = {
                 displayOBJ.addShipSunk(cargs);
             }
 
-            
+            if (command == "setAlignment") {
+                console.log("here here");
+                displayOBJ.adjustAlignment(cargs);
+            }
+
 
         }
 
