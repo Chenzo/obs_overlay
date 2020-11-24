@@ -2,7 +2,7 @@
 .new_follower_pop {
     color: white;
     position: absolute;
-    top:200px; // -90px;
+    top:-90px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 2;
@@ -54,7 +54,7 @@
     }
 
     .right_text {
-        top: 34px;
+        top: 36px;
         left: 287px;
         font-size: 28px;
         letter-spacing: 1px;

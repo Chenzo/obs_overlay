@@ -10067,9 +10067,18 @@ displayOBJ = {
         skullmeter.style.transform = "translateX(" + val + ")";
     },
 
-    newFollowerAlert: function(amount) {
+    newFollowerAlert: function(followName) {
         //#new_follower_pop
         var new_follower_pop = document.querySelector("#new_follower_pop");
+        var nft = document.querySelector("#newfollow_text");
+        nft.textContent=followName;
+        new_follower_pop.classList.add("onDisplay");
+        var rm = setTimeout(function() {
+            new_follower_pop.classList.remove("onDisplay");
+        }, 4000);
+    },
+
+    newSubAlert: function(subName) {
 
     }
 
@@ -10086,7 +10095,8 @@ module.exports = {
     playAudio: displayOBJ.playAudio,
     addShipSunk: displayOBJ.addShipSunk,
     adjustAlignment: displayOBJ.adjustAlignment,
-    newFollowerAlert: displayOBJ.newFollowerAlert
+    newFollowerAlert: displayOBJ.newFollowerAlert,
+    newSubAlert: displayOBJ.newSubAlert
 };
 
 
