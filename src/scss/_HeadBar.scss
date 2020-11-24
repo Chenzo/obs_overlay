@@ -8,6 +8,7 @@ header {
     left: 50%;
     transform: (translateX(-50%));
     filter: drop-shadow(0px 1px 6px #000);
+    z-index: 10;
     
     
     .innerBar {
@@ -115,20 +116,6 @@ header {
         transform: translateX(0px);
     }
 
-    .ticks {
-        position: absolute;
-        bottom: -10px;
-        display: flex;
-        width: 1060px;
-        justify-content: space-evenly;
-        display: none;
-        .onetick {
-            border-right: solid #c04f1f 2px;
-            height: 16px;
-            width: 10px;
-            display: inline-block;
-        }
-    }
 }
 
 

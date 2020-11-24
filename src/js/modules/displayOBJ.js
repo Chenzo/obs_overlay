@@ -68,6 +68,12 @@ displayOBJ = {
         console.log(newAlignment);
         var val = newAlignment + "px";
         skullmeter.style.transform = "translateX(" + val + ")";
+    },
+
+    newFollowerAlert: function(amount) {
+        //#new_follower_pop
+        var new_follower_pop = document.querySelector("#new_follower_pop");
+
     }
 
 }
@@ -82,5 +88,6 @@ module.exports = {
     removeCrew: displayOBJ.removeCrew,
     playAudio: displayOBJ.playAudio,
     addShipSunk: displayOBJ.addShipSunk,
-    adjustAlignment: displayOBJ.adjustAlignment
+    adjustAlignment: displayOBJ.adjustAlignment,
+    newFollowerAlert: displayOBJ.newFollowerAlert
 };

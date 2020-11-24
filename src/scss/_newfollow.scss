@@ -1,0 +1,68 @@
+
+.new_follower_pop {
+    color: white;
+    position: absolute;
+    top:200px; // -90px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    transition-property: top;
+    transition-duration: 1s;
+    transition-timing-function:ease-out;
+
+    &.onDisplay {
+        top: 120px;
+    }
+
+    #text_curve {
+        position: absolute;
+        top: 62px;
+        left: -10px
+    }
+
+    .textStyle, text {
+        font-variant: small-caps;
+        font-size: 17px;
+        letter-spacing: 1px;
+        font-family: 'windlass', sans-serif;
+        text-shadow: 1px 1px 3px black;
+    }
+
+    text {
+        fill: white;
+    }
+
+    path {
+        fill: none;
+        stroke: 0;
+        stroke-width: 1px;
+        }
+    svg {
+        width: 500px;
+        color: white;
+    }
+
+    .textStyle {
+        position: absolute;
+        top: 30px;
+        left: 100px;
+        z-index: 4;
+        font-size: 32px;
+        color: $gold_2;
+        letter-spacing: 4px;
+        transform: rotate(-17deg);
+    }
+
+    .right_text {
+        top: 34px;
+        left: 287px;
+        font-size: 28px;
+        letter-spacing: 1px;
+        transform: rotate(17deg);
+    }
+    .left_text {
+        top: 30px;
+        left: 100px;
+        transform: rotate(-17deg);
+    }
+}

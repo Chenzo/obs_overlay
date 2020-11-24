@@ -2,7 +2,7 @@
 
 <html>
     <head>
-        <link rel="stylesheet" href="./css/overlay.css?cache_buster=1605899819461" />
+        <link rel="stylesheet" href="./css/overlay.css?cache_buster=1606248218347" />
     </head>
     <body>
 
@@ -25,16 +25,6 @@
                 <img src="images/ribbon_evil.png" class="evil"/>
                 <img src="images/ribbon_good.png" class="good" />
                 <img id="skullmeter" src="images/skull_meter.png" class="skullmeter" />
-                <div class="ticks">
-                    <div class="onetick"></div>
-                    <div class="onetick"></div>
-                    <div class="onetick"></div>
-                    <div class="onetick"></div>
-                    <div class="onetick"></div>
-                    <div class="onetick"></div>
-                    <div class="onetick"></div>
-                    <div class="onetick"></div>
-                </div>
               </div>
               <!-- <div class="seperator">
                 <img src="images/pileofskulls.png" />
@@ -43,6 +33,28 @@
         </header>
 
         <main>
+
+            <section id="new_follower_pop" class="new_follower_pop">
+                <div class="left_text textStyle">New</div>
+                <div class="right_text textStyle">Follower</div>
+                <div class="ribbon_holder">
+                    <img src="images/newfollow_ribbon.png" class="newfollow" />
+                </div>
+
+                
+                <svg id="text_curve" viewBox="0 0 300 300">
+                    <path id="curve" d="m4.5,3.45313c0,0 154,80 300,-8" />
+                    <text width="300">
+                        <textPath id="newfollow_text" xlink:href="#curve" startOffset="50%" text-anchor="middle">
+                        Untrueherro
+                        </textPath>
+                    </text>
+                </svg>
+
+                
+
+            </section>
+
             <section id="countdown" class="countdown">
                 id: 
             </section>
@@ -135,7 +147,7 @@
 
         <!-- <script src="./js/socket.io.min.js"></script> -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>
-        <script src="./js/overlay.js?cache_buster=1605899819461"></script>
+        <script src="./js/overlay.js?cache_buster=1606248218347"></script>
 
         <audio id="um3">
             <source src="./audio/umm-3.mp3" type="audio/mpeg">
