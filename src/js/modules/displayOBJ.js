@@ -68,6 +68,25 @@ displayOBJ = {
         console.log(newAlignment);
         var val = newAlignment + "px";
         skullmeter.style.transform = "translateX(" + val + ")";
+    },
+
+    newFollowerAlert: function(followName) {
+        //#new_follower_pop
+        var new_follower_pop = document.querySelector("#new_follower_pop");
+        var nft = document.querySelector("#newfollow_text");
+        nft.textContent=followName;
+        new_follower_pop.classList.add("onDisplay");
+        var rm = setTimeout(function() {
+            new_follower_pop.classList.remove("onDisplay");
+            new_follower_pop.classList.add("offDisplay");
+            var mr = setTimeout(function() {
+                new_follower_pop.classList.remove("offDisplay");
+            }, 1000);
+        }, 4000);
+    },
+
+    newSubAlert: function(subName) {
+
     }
 
 }
@@ -82,5 +101,7 @@ module.exports = {
     removeCrew: displayOBJ.removeCrew,
     playAudio: displayOBJ.playAudio,
     addShipSunk: displayOBJ.addShipSunk,
-    adjustAlignment: displayOBJ.adjustAlignment
+    adjustAlignment: displayOBJ.adjustAlignment,
+    newFollowerAlert: displayOBJ.newFollowerAlert,
+    newSubAlert: displayOBJ.newSubAlert
 };

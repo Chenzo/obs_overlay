@@ -1,6 +1,5 @@
 
 //import configData from './../config.js';
-
 const configData = require('./../config.js');
 
 twitchOBJ = {

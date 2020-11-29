@@ -34,6 +34,7 @@ remoteOBJ = {
         var cargs, command;
         var isDo = message.text.substr(0, 3);//.split(" ")[0];
         if (isDo == "do:") {
+            console.log("DO COMMAND");
             var splitMessage = message.text.substr(4).split(" ");
             command = splitMessage[0];
             if (splitMessage.length > 0) {
@@ -68,6 +69,11 @@ remoteOBJ = {
             if (command == "setAlignment") {
                 console.log("here here");
                 displayOBJ.adjustAlignment(cargs);
+            }
+
+            if (command == "newFollower") {
+                console.log("new follower displayObj call: ");
+                displayOBJ.newFollowerAlert(cargs);
             }
 
 
