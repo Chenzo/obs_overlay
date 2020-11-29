@@ -2,16 +2,37 @@
 .new_follower_pop {
     color: white;
     position: absolute;
-    top:-90px;
-    left: 50%;
-    transform: translateX(-50%);
+    display: none;
+    justify-content: center;
+    width: 100%;
+    top: 1200px;
+    /* left: 50%;
+    transform: translateX(-50%); */
     z-index: 2;
     transition-property: top;
     transition-duration: 1s;
     transition-timing-function:ease-out;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+
+    .ribbon_holder {
+        position: relative;
+    }
 
     &.onDisplay {
+        display: flex;
         top: 120px;
+        -webkit-animation-name: flipInX;
+        animation-name: flipInX;
+    }
+
+    &.offDisplay {
+        display: flex;
+        top: 120px;
+        -webkit-animation-name: flipOutX;
+        animation-name: flipOutX;
     }
 
     #text_curve {

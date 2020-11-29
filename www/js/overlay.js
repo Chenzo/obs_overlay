@@ -9876,8 +9876,8 @@ var configData = {
   Client_Secret : 'qya1ilrj7i6yblku1impcw2oxcz7vq',
   OAUTH: 'oauth:xkz8a8qk4f5sjm25wldsowxxwz5rnl',
   userID: '58652316',
-  server: 'https://fierce-springs-20115.herokuapp.com/',
-  //server: 'http://localhost:3002/',
+  //server: 'https://fierce-springs-20115.herokuapp.com/',
+  server: 'http://localhost:3002/',
   server_port: 3002
 }
 
@@ -10075,6 +10075,10 @@ displayOBJ = {
         new_follower_pop.classList.add("onDisplay");
         var rm = setTimeout(function() {
             new_follower_pop.classList.remove("onDisplay");
+            new_follower_pop.classList.add("offDisplay");
+            var mr = setTimeout(function() {
+                new_follower_pop.classList.remove("offDisplay");
+            }, 1000);
         }, 4000);
     },
 
@@ -10195,6 +10199,7 @@ remoteOBJ = {
         var cargs, command;
         var isDo = message.text.substr(0, 3);//.split(" ")[0];
         if (isDo == "do:") {
+            console.log("DO COMMAND");
             var splitMessage = message.text.substr(4).split(" ");
             command = splitMessage[0];
             if (splitMessage.length > 0) {
@@ -10229,6 +10234,11 @@ remoteOBJ = {
             if (command == "setAlignment") {
                 console.log("here here");
                 displayOBJ.adjustAlignment(cargs);
+            }
+
+            if (command == "newFollower") {
+                console.log("new follower displayObj call: ");
+                displayOBJ.newFollowerAlert(cargs);
             }
 
 
@@ -10383,7 +10393,6 @@ module.exports = {
 
 
 //import configData from './../config.js';
-
 const configData = __webpack_require__(/*! ./../config.js */ "./src/js/config.js");
 
 twitchOBJ = {

@@ -78,6 +78,10 @@ displayOBJ = {
         new_follower_pop.classList.add("onDisplay");
         var rm = setTimeout(function() {
             new_follower_pop.classList.remove("onDisplay");
+            new_follower_pop.classList.add("offDisplay");
+            var mr = setTimeout(function() {
+                new_follower_pop.classList.remove("offDisplay");
+            }, 1000);
         }, 4000);
     },
 
