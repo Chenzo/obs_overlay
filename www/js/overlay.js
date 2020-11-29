@@ -9876,8 +9876,8 @@ var configData = {
   Client_Secret : 'qya1ilrj7i6yblku1impcw2oxcz7vq',
   OAUTH: 'oauth:xkz8a8qk4f5sjm25wldsowxxwz5rnl',
   userID: '58652316',
-  //server: 'https://fierce-springs-20115.herokuapp.com/',
-  server: 'http://localhost:3002/',
+  server: 'https://fierce-springs-20115.herokuapp.com/',
+  //server: 'http://localhost:3002/',
   server_port: 3002
 }
 
