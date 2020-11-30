@@ -76,6 +76,11 @@ remoteOBJ = {
                 displayOBJ.newFollowerAlert(cargs);
             }
 
+            if (command == "newSubAlert") {
+                console.log("new sub alert! ")
+                displayOBJ.newSubAlert(cargs, "two");
+            }
+
 
         }
 

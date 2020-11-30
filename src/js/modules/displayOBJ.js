@@ -85,8 +85,18 @@ displayOBJ = {
         }, 4000);
     },
 
-    newSubAlert: function(subName) {
-
+    newSubAlert: function(subName, sublevel) {
+        var new_sub_pop = document.querySelector("#new_sub");
+        var nst = document.querySelector("#sub_text .name");
+        nst.textContent=subName;
+        new_sub_pop.classList.add("onDisplay");
+        var rm = setTimeout(function() {
+            var nst = document.querySelector("#sub_text");
+            nst.classList.add("animate__tada");
+        }, 3500);
+        var rm = setTimeout(function() {
+            new_sub_pop.classList.remove("onDisplay");
+        }, 7000);
     }
 
 }

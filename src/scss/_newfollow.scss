@@ -96,11 +96,23 @@
     left: 50%;
     transform: translateX(-50%);
     bottom: 120px;
+    opacity: 0;
+    transition: opacity 1s;
+    -webkit-transition: opacity 1s;
+
+
 
     .hand {
         position: absolute;
         top: -20px;
         left: 40px;
+        opacity: 0;
+        transition: opacity 1s;
+        -webkit-transition: opacity 1s;
+
+        /* &.onDisplay {
+            opacity: 1;
+        } */
     }
 
     .sub_text {
@@ -118,9 +130,27 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        opacity: 0;
+        transition: opacity 1s;
+        -webkit-transition: opacity 1s;
 
         .name {
             color: $blue_3;
+        }
+    }
+
+
+    &.onDisplay {
+        opacity: 1;
+
+        .hand {
+            transition-delay: 1s;
+            opacity: 1;
+        }
+
+        .sub_text {
+            transition-delay: 2s;
+            opacity: 1;
         }
     }
 }
