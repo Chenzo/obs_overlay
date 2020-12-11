@@ -1,6 +1,8 @@
 const configData = require('./../config.js');
 const displayOBJ = require('./displayOBJ.js');
 
+
+
 remoteOBJ = {
 
     name: 'Panel Host',
@@ -74,6 +76,11 @@ remoteOBJ = {
             if (command == "newFollower") {
                 console.log("new follower displayObj call: ");
                 displayOBJ.newFollowerAlert(cargs);
+            }
+
+            if (command == "newSubAlert") {
+                console.log("new sub alert! ")
+                displayOBJ.newSubAlert(cargs, "two");
             }
 
 

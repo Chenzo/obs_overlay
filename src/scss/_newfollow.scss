@@ -87,3 +87,70 @@
         transform: rotate(-17deg);
     }
 }
+
+
+
+#new_sub {
+    position: absolute;
+    z-index: 100;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 120px;
+    opacity: 0;
+    transition: opacity 1s;
+    -webkit-transition: opacity 1s;
+
+
+
+    .hand {
+        position: absolute;
+        top: -20px;
+        left: 40px;
+        opacity: 0;
+        transition: opacity 1s;
+        -webkit-transition: opacity 1s;
+
+        /* &.onDisplay {
+            opacity: 1;
+        } */
+    }
+
+    .sub_text {
+        position: absolute;
+        top: 0px;
+        left: 260px;
+        width: 480px;
+        height: 160px;
+        font-variant: small-caps;
+        font-size: 23px;
+        letter-spacing: 1px;
+        font-family: 'windlass', sans-serif;
+        text-shadow: 1px 1px 3px black;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        transition: opacity 1s;
+        -webkit-transition: opacity 1s;
+
+        .name {
+            color: $blue_3;
+        }
+    }
+
+
+    &.onDisplay {
+        opacity: 1;
+
+        .hand {
+            transition-delay: 1s;
+            opacity: 1;
+        }
+
+        .sub_text {
+            transition-delay: 2s;
+            opacity: 1;
+        }
+    }
+}

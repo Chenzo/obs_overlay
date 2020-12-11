@@ -40,6 +40,21 @@ displayOBJ = {
         } else if (audioName == "sharkbait") {
             var myAudio = document.getElementById('sharkbait');
             myAudio.play();
+        } else if (audioName == "carl") {
+            var myAudio = document.getElementById('carl');
+            myAudio.play();
+        } 
+        else if (audioName == "wind") {
+            var myAudio = document.getElementById('wind');
+            myAudio.play();
+        } 
+        else if (audioName == "chunky") {
+            var myAudio = document.getElementById('chunky');
+            myAudio.play();
+        } 
+        else if (audioName == "fire") {
+            var myAudio = document.getElementById('fire');
+            myAudio.play();
         } 
     },
 
@@ -85,8 +100,18 @@ displayOBJ = {
         }, 4000);
     },
 
-    newSubAlert: function(subName) {
-
+    newSubAlert: function(subName, sublevel) {
+        var new_sub_pop = document.querySelector("#new_sub");
+        var nst = document.querySelector("#sub_text .name");
+        nst.textContent=subName;
+        new_sub_pop.classList.add("onDisplay");
+        var rm = setTimeout(function() {
+            var nst = document.querySelector("#sub_text");
+            nst.classList.add("animate__tada");
+        }, 3500);
+        var rm = setTimeout(function() {
+            new_sub_pop.classList.remove("onDisplay");
+        }, 7000);
     }
 
 }
