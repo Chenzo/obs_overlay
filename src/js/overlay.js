@@ -1,7 +1,4 @@
 
-/* 
-//const remoteOBJ = require("./modules/remoteOBJ");
-const displayOBJ = require("./modules/displayOBJ"); */
 
 
 import {voicebarsOBJ} from './modules/voicebarsOBJ.js';
@@ -16,8 +13,5 @@ chatScrollerOBJ.init();
 twitchChatOBJ.init();
 remoteOBJ.init();
 
-/* 
-twitchChatOBJ.init();
-remoteOBJ.init(); */
 
 console.log("OVERLAY INIT");
