@@ -1,32 +1,29 @@
+export const displayOBJ = (() => {
 
-
-
-displayOBJ = {
-
-    addCrew: function(crewMember) {
+    const addCrew = function(crewMember) {
         console.log("ADD CREW : " + crewMember);
         var crewDiv = document.getElementById(crewMember);
         crewDiv.classList.add("active");
         //client.say(channel, crewMember + ' added as crew member!');
-    },
+    };
 
-    removeCrew: function(crewMember) {
+    const removeCrew = function(crewMember) {
         console.log("REMOVE CREW : " + crewMember);
         var crewDiv = document.getElementById(crewMember);
         crewDiv.classList.remove("active");
         //client.playaudiosay(channel, crewMember + ' added as crew member!');
-    },
+    };
 
-    getCrew: function() {
+   const getCrew = function() {
         var crewlist = document.getElementById("crew").querySelectorAll(".crewmate.active"), i; 
         var crewArray = [];
         for (i = 0; i < crewlist.length; ++i) {
         crewArray.push(crewlist[i].id);
         }
         return crewArray;
-    },
+    };
 
-    playAudio: function(audioName) {
+    const playAudio = function(audioName) {
         if (audioName == "3") {
             var myAudio = document.getElementById('um3');
             myAudio.play();
@@ -56,9 +53,9 @@ displayOBJ = {
             var myAudio = document.getElementById('fire');
             myAudio.play();
         } 
-    },
+    };
 
-    addShipSunk: function(shipType) {
+    const addShipSunk = function(shipType) {
         if (shipType == "galleon" || shipType == "sloop" || shipType == "brig" ) {
             console.log("ADDING SINKING BOAT");
             var sunksDiv = document.getElementById("sunks"); 
@@ -69,9 +66,9 @@ displayOBJ = {
             sunksDiv.appendChild(boat);
             //client.say(channel, shipType + ' sunk!');
         }
-    },
+    };
 
-    adjustAlignment: function(amount) {
+    const adjustAlignment = function(amount) {
         console.log("AMMOUJT" + amount);
         var skullmeter = document.querySelector("#skullmeter");
         var style = window.getComputedStyle(skullmeter);
@@ -83,9 +80,9 @@ displayOBJ = {
         console.log(newAlignment);
         var val = newAlignment + "px";
         skullmeter.style.transform = "translateX(" + val + ")";
-    },
+    };
 
-    newFollowerAlert: function(followName) {
+    const newFollowerAlert = function(followName) {
         //#new_follower_pop
         var new_follower_pop = document.querySelector("#new_follower_pop");
         var nft = document.querySelector("#newfollow_text");
@@ -98,9 +95,9 @@ displayOBJ = {
                 new_follower_pop.classList.remove("offDisplay");
             }, 1000);
         }, 4000);
-    },
+    };
 
-    newSubAlert: function(subName, sublevel) {
+    const newSubAlert = function(subName, sublevel) {
         var new_sub_pop = document.querySelector("#new_sub");
         var nst = document.querySelector("#sub_text .name");
         nst.textContent=subName;
@@ -112,21 +109,17 @@ displayOBJ = {
         var rm = setTimeout(function() {
             new_sub_pop.classList.remove("onDisplay");
         }, 7000);
-    }
+    };
 
-}
+    return {
+        addCrew: addCrew,
+        getCrew: getCrew,
+        removeCrew: removeCrew,
+        playAudio: playAudio,
+        addShipSunk: addShipSunk,
+        adjustAlignment: adjustAlignment,
+        newFollowerAlert: newFollowerAlert,
+        newSubAlert: newSubAlert
+    };
+})();
 
-
-
-
-
-module.exports = { 
-    addCrew: displayOBJ.addCrew,
-    getCrew: displayOBJ.getCrew,
-    removeCrew: displayOBJ.removeCrew,
-    playAudio: displayOBJ.playAudio,
-    addShipSunk: displayOBJ.addShipSunk,
-    adjustAlignment: displayOBJ.adjustAlignment,
-    newFollowerAlert: displayOBJ.newFollowerAlert,
-    newSubAlert: displayOBJ.newSubAlert
-};

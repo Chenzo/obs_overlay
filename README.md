@@ -4,15 +4,11 @@ my overlay
 
 
 
-
-From the root run this command:
-`docker-compose -f docker/docker-compose.yml up --build`
-
-
-http://localhost:8088/overlay.html
+`npm start` - launches rollup and a simple rollup server
 
 
 
 
-
+libs:
+https://www.npmjs.com/package/twitch-js
 

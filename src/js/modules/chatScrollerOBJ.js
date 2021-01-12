@@ -1,11 +1,10 @@
+let checkTimer = 0;
+let recId = 0;
+
+export const chatScrollerOBJ = (() => {
 
 
-chatScrollerOBJ = {
-
-    checkTimer: 0,
-    recId: 0,
-
-    scrollIt: function(who, message, id) {
+    let scrollIt = function(who, message, id) {
         console.log(who, message, id);
 
         var newDiv = document.createElement("div"); 
@@ -33,11 +32,9 @@ chatScrollerOBJ = {
                 document.getElementById("latest_followers").classList.remove("hiding");
             }
         });
+    };
 
-
-    },
-
-    checkDivScroll: function() {
+    let checkDivScroll = function() {
         var pendingLength = document.getElementsByClassName("aphrase").length;
 
         if (pendingLength > 0) {
@@ -65,27 +62,26 @@ chatScrollerOBJ = {
         }
 
         //document.getElementById("numoutput").innerHTML= checkTimer;
-        chatScrollerOBJ.addcheckTimer++;
-        chatScrollerOBJ.recId = requestAnimationFrame(chatScrollerOBJ.checkDivScroll);
+        //addcheckTimer++; // <-- this never seems to do anything?
+        recId = requestAnimationFrame(checkDivScroll);
         
-    },
+    };
 
-    init: function() {
+    const init = function() {
         console.log("checkDivScroll init");
-        chatScrollerOBJ.recId = requestAnimationFrame(chatScrollerOBJ.checkDivScroll);
-    },
+        recId = requestAnimationFrame(checkDivScroll);
+    };
 
-    start: function() {
-        chatScrollerOBJ.recId = requestAnimationFrame(chatScrollerOBJ.checkDivScroll);
-    }
+    const start = function() {
+        recId = requestAnimationFrame(checkDivScroll);
+    };
 
-}
-
-
-
-module.exports = { 
-    init: chatScrollerOBJ.init,
-    scrollIt: chatScrollerOBJ.scrollIt,
-    checkDivScroll: chatScrollerOBJ.checkDivScroll,
-    start: chatScrollerOBJ.start
-};
+    return {
+        init: init,
+        scrollIt: scrollIt,
+        checkDivScroll: checkDivScroll,
+        start: start
+    };
+    
+})();
+    
