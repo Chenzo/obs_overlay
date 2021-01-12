@@ -575,6 +575,131 @@
         
     })();
 
+    const displayOBJ = (() => {
+
+        const addCrew = function(crewMember) {
+            console.log("ADD CREW : " + crewMember);
+            var crewDiv = document.getElementById(crewMember);
+            crewDiv.classList.add("active");
+            //client.say(channel, crewMember + ' added as crew member!');
+        };
+
+        const removeCrew = function(crewMember) {
+            console.log("REMOVE CREW : " + crewMember);
+            var crewDiv = document.getElementById(crewMember);
+            crewDiv.classList.remove("active");
+            //client.playaudiosay(channel, crewMember + ' added as crew member!');
+        };
+
+       const getCrew = function() {
+            var crewlist = document.getElementById("crew").querySelectorAll(".crewmate.active"), i; 
+            var crewArray = [];
+            for (i = 0; i < crewlist.length; ++i) {
+            crewArray.push(crewlist[i].id);
+            }
+            return crewArray;
+        };
+
+        const playAudio = function(audioName) {
+            if (audioName == "3") {
+                var myAudio = document.getElementById('um3');
+                myAudio.play();
+                //client.say(channel, '3');
+            } else if (audioName == "digs") {
+                var myAudio = document.getElementById('digs');
+                myAudio.play();
+            } else if (audioName == "babyshark") {
+                var myAudio = document.getElementById('babyshark');
+                myAudio.play();
+            } else if (audioName == "sharkbait") {
+                var myAudio = document.getElementById('sharkbait');
+                myAudio.play();
+            } else if (audioName == "carl") {
+                var myAudio = document.getElementById('carl');
+                myAudio.play();
+            } 
+            else if (audioName == "wind") {
+                var myAudio = document.getElementById('wind');
+                myAudio.play();
+            } 
+            else if (audioName == "chunky") {
+                var myAudio = document.getElementById('chunky');
+                myAudio.play();
+            } 
+            else if (audioName == "fire") {
+                var myAudio = document.getElementById('fire');
+                myAudio.play();
+            } 
+        };
+
+        const addShipSunk = function(shipType) {
+            if (shipType == "galleon" || shipType == "sloop" || shipType == "brig" ) {
+                console.log("ADDING SINKING BOAT");
+                var sunksDiv = document.getElementById("sunks"); 
+                var boat = document.createElement('div');
+                var type = shipType;
+                boat.classList.add("ship-sinker","sink");
+                boat.innerHTML = '<div class="aship float '+ type + '"><img src="images/sunk/'+type+'.png" /></div>';
+                sunksDiv.appendChild(boat);
+                //client.say(channel, shipType + ' sunk!');
+            }
+        };
+
+        const adjustAlignment = function(amount) {
+            console.log("AMMOUJT" + amount);
+            var skullmeter = document.querySelector("#skullmeter");
+            var style = window.getComputedStyle(skullmeter);
+            var matrix = new WebKitCSSMatrix(style.webkitTransform);
+            var currentAlignment = matrix.m41;
+            //console.log('translateX: ', matrix.m41);
+
+            var newAlignment = parseInt(currentAlignment) + parseInt(amount);
+            console.log(newAlignment);
+            var val = newAlignment + "px";
+            skullmeter.style.transform = "translateX(" + val + ")";
+        };
+
+        const newFollowerAlert = function(followName) {
+            //#new_follower_pop
+            var new_follower_pop = document.querySelector("#new_follower_pop");
+            var nft = document.querySelector("#newfollow_text");
+            nft.textContent=followName;
+            new_follower_pop.classList.add("onDisplay");
+            var rm = setTimeout(function() {
+                new_follower_pop.classList.remove("onDisplay");
+                new_follower_pop.classList.add("offDisplay");
+                var mr = setTimeout(function() {
+                    new_follower_pop.classList.remove("offDisplay");
+                }, 1000);
+            }, 4000);
+        };
+
+        const newSubAlert = function(subName, sublevel) {
+            var new_sub_pop = document.querySelector("#new_sub");
+            var nst = document.querySelector("#sub_text .name");
+            nst.textContent=subName;
+            new_sub_pop.classList.add("onDisplay");
+            var rm = setTimeout(function() {
+                var nst = document.querySelector("#sub_text");
+                nst.classList.add("animate__tada");
+            }, 3500);
+            var rm = setTimeout(function() {
+                new_sub_pop.classList.remove("onDisplay");
+            }, 7000);
+        };
+
+        return {
+            addCrew: addCrew,
+            getCrew: getCrew,
+            removeCrew: removeCrew,
+            playAudio: playAudio,
+            addShipSunk: addShipSunk,
+            adjustAlignment: adjustAlignment,
+            newFollowerAlert: newFollowerAlert,
+            newSubAlert: newSubAlert
+        };
+    })();
+
     const configData$3 = configModule.getConfig(); 
 
 
@@ -621,22 +746,33 @@
                 
                 if (command == "addcrew") {
                     console.log("addcrew", cargs);
-                    //displayOBJ.addCrew(cargs);
+                    displayOBJ.addCrew(cargs);
+                }
+
+                if (command == "playaudio") {
+                    displayOBJ.playAudio(cargs);
+                }
+
+                if (command == "removecrew") {
+                    displayOBJ.removeCrew(cargs);
+                }
+
+                if (command == "shipsunk") {
+                    displayOBJ.addShipSunk(cargs);
                 }
 
                 if (command == "setAlignment") {
-                    console.log("here here");
-                    //displayOBJ.adjustAlignment(cargs);
+                    displayOBJ.adjustAlignment(cargs);
                 }
 
                 if (command == "newFollower") {
                     console.log("new follower displayObj call: ");
-                    //displayOBJ.newFollowerAlert(cargs);
+                    displayOBJ.newFollowerAlert(cargs);
                 }
 
                 if (command == "newSubAlert") {
                     console.log("new sub alert! ");
-                    //displayOBJ.newSubAlert(cargs, "two");
+                    displayOBJ.newSubAlert(cargs, "two");
                 }
 
 
@@ -655,103 +791,6 @@
             init: init,
         };
     })();
-
-    /*
-    remoteOBJ = {
-
-        name: 'Panel Host',
-        room: 'panel_remote',
-        socket: null,
-
-
-        init: function() {
-            console.log("SERVER: " + configData.server);
-            remoteOBJ.socket = io(configData.server);
-            remoteOBJ.socket.on('connect_error', remoteOBJ.handleNoConnect);
-            remoteOBJ.socket.on("connect", remoteOBJ.onConnect);
-            remoteOBJ.socket.on("message", remoteOBJ.onMessage);
-        },
-
-        handleNoConnect: function(err) {
-            console.log('connection error');
-            console.log(err)
-        },
-
-        onConnect: function() {
-            console.log("Connected to Socket I/O Server!!!");
-            remoteOBJ.socket.emit('joinRoom', {
-                name: remoteOBJ.name,
-                room: remoteOBJ.room
-            });
-        },
-
-        onMessage: function(message) {
-            console.log("- message: " + message.text);
-            var cargs, command;
-            var isDo = message.text.substr(0, 3);//.split(" ")[0];
-            if (isDo == "do:") {
-                console.log("DO COMMAND");
-                var splitMessage = message.text.substr(4).split(" ");
-                command = splitMessage[0];
-                if (splitMessage.length > 0) {
-                    cargs = splitMessage[1];
-                }
-
-                if (command == "getcrew") {
-                    console.log("Send Crew Status");
-                    msg = "current crew: " + displayOBJ.getCrew();
-                    remoteOBJ.socket.emit("message", {
-                        text: msg,
-                        name: remoteOBJ.name
-                    });
-                }
-                
-                if (command == "addcrew") {
-                    displayOBJ.addCrew(cargs);
-                }
-
-                if (command == "playaudio") {
-                    displayOBJ.playAudio(cargs);
-                }
-
-                if (command == "removecrew") {
-                    displayOBJ.removeCrew(cargs);
-                }
-
-                if (command == "shipsunk") {
-                    displayOBJ.addShipSunk(cargs);
-                }
-
-                if (command == "setAlignment") {
-                    console.log("here here");
-                    displayOBJ.adjustAlignment(cargs);
-                }
-
-                if (command == "newFollower") {
-                    console.log("new follower displayObj call: ");
-                    displayOBJ.newFollowerAlert(cargs);
-                }
-
-                if (command == "newSubAlert") {
-                    console.log("new sub alert! ")
-                    displayOBJ.newSubAlert(cargs, "two");
-                }
-
-
-            }
-
-            if (message.text == "soemthing") {
-            }
-        }
-
-    };
-
-    module.exports = { 
-        init: remoteOBJ.init
-    };
-
-
-    */
 
     voicebarsOBJ.init();
     twitchOBJ.init();
