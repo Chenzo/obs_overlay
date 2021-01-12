@@ -5,10 +5,10 @@ import serve from 'rollup-plugin-serve';
 
 export default [
 	{
-		input: 'src/js/main.js',
+		input: 'src/js/overlay.js',
 		output: {
 			name: 'mainPackage',
-			file: 'www/js/main.min.js',
+			file: 'www/js/overlay.js',
 			format: 'umd',
 			sourcemap: true
 		},

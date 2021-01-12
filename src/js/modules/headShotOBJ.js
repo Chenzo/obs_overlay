@@ -1,39 +1,40 @@
-const voicebarsOBJ = require("./voicebarsOBJ");
 
-headShotOBJ = {
+import {voicebarsOBJ} from './voicebarsOBJ.js';
 
-    headShotType: 1,
+let headShotType;
 
-    toggleCam: function(hType) {
-        
-        //console.log("-- headshot toggle cam: " + hType);
+export const headShotOBJ = (() => {
+
+    
+
+    const toggleCam = function(hType) {
+    
 
         if(hType == "skully") {
             document.getElementById("headshot").classList.remove("headshot");
             document.getElementById("headshot").classList.add("skully");
-            headShotOBJ.headShotType = 2;
-            voicebarsOBJ.restart();
+            headShotType = 2;
+            voicebarsOBJ.restart(headShotType);
             //console.log("set to skully");
         } else if (hType == "headshot") {
             document.getElementById("headshot").classList.add("headshot");
             document.getElementById("headshot").classList.remove("skully");
-            headShotOBJ.headShotType = 1;
-            voicebarsOBJ.restart();
+            headShotType = 1;
+            voicebarsOBJ.restart(headShotType);
             //console.log("set to headshot");
         }
 
-    },
+    };
 
 
-    init: function() {
+    const init = function() {
         console.log("headShotOBJ init");
-    }
-}
+    };
 
+    return {
+        init: init,
+        headShotType: headShotType,
+        toggleCam: toggleCam
+    };
+})();
 
-
-module.exports = { 
-    init: headShotOBJ.init,
-    headShotType: headShotOBJ.headShotType,
-    toggleCam: headShotOBJ.toggleCam
-};

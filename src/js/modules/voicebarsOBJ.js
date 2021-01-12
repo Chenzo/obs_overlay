@@ -1,47 +1,29 @@
 
-headShotOBJ = require('./headShotOBJ');
 
+let headShotType = 1;
+let rafId = 0;
+let audioContext, analyser, dataArray, source, canvas;
+let canvas2, ctx, ctx2, width, height, radius, num_items;
+let particles = [];
+let myThing, fftSize, smoothingTimeConstant;
 
-voicebarsObj = {
+export const voicebarsOBJ = (() => {
 
-    rafID: 0,
-    audioContext: null,
-    analyser: null,
-    dataArray: null,
-    source: null,
-    canvas: null,
-    canvas2: null,
-    ctx: null,
-    ctx2: null,
-    width: null,
-    height: null,
-    radius: null,
-    num_items: null,
-    particles: [],
-    myThing: null,
-    fftSize: null,
-    smoothingTimeConstant: null,
-
-
-    prepType: function() {
+    const prepType = function() {
 
         fftSize = 128;
         smoothingTimeConstant = 0.8;
 
-        //console.log("headShotOBJ.headShotType: " + headShotOBJ.headShotType);
-
-        if (headShotOBJ.headShotType == 2) {
+        if (headShotType == 2) {
             //skull
             smoothingTimeConstant = 0.2;
             fftSize = 64;
         }
+    };
 
-
-    },
-
-    tick: function() {
-        voicebarsObj.analyser.getByteFrequencyData(dataArray);
-        if (headShotOBJ.headShotType == 2) {
+    const tick = function() {
+        analyser.getByteFrequencyData(dataArray);
+        if (headShotType == 2) {
 
             let i = 0;
             let jawi = i + 109
@@ -80,15 +62,14 @@ voicebarsObj = {
             document.getElementById("skull_jaw").style.top = jawi + "px";
             document.getElementById("skull_bg").style.opacity = alf;
         } else {
-            voicebarsObj.drawBars(voicebarsObj.ctx, dataArray);
-            voicebarsObj.drawBars(voicebarsObj.ctx2, dataArray);
+            drawBars(ctx, dataArray);
+            drawBars(ctx2, dataArray);
         }
-        voicebarsObj.rafId = requestAnimationFrame(voicebarsObj.tick);
-        voicebarsObj.myThing.innerHTML = "rafId: " + voicebarsObj.rafId;
-    },
+        rafId = requestAnimationFrame(tick);
+        myThing.innerHTML = "rafId: " + rafId;
+    };
 
-
-    getLastIdx: function(dArray) {
+    const getLastIdx = function(dArray) {
         var r = 0;
         for (const [idx, s] of dArray.entries()) {
             if (s > 10) {
@@ -96,20 +77,20 @@ voicebarsObj = {
             }
         }
         return r;
-    },
+    };
 
-    drawBars: function(ctx, dataArray) {
-        ctx.clearRect(0, 0, voicebarsObj.canvas.width, voicebarsObj.canvas.height);
+    const drawBars = function(ctx, dataArray) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
     
         for (const [i, s] of dataArray.entries()) {
     
-            var p = voicebarsObj.particles[i];
+            var p = particles[i];
             var vol = (s < 120) ? s : 121;
             var ss = Math.abs(vol / 2 );
     
             if (typeof p != "undefined") {
-                var x2 = voicebarsObj.width/2 + Math.cos(p.angle) * (ss + voicebarsObj.radius);
-                var y2 = voicebarsObj.height/2 + Math.sin(p.angle) * (ss + voicebarsObj.radius);
+                var x2 = width/2 + Math.cos(p.angle) * (ss + radius);
+                var y2 = height/2 + Math.sin(p.angle) * (ss + radius);
     
                 ctx.beginPath();
                 var gradient = ctx.createRadialGradient(2100,250,20, 250,250,175);
@@ -127,9 +108,9 @@ voicebarsObj = {
             } 
     
         }
-    },
+    };
 
-    makeAngles: function() {
+    const makeAngles = function() {
         
         function radians(deg) {return deg*Math.PI/180;};
     
@@ -137,85 +118,82 @@ voicebarsObj = {
             return me/total * 180 - 90;
         }
     
-        for (var i = 0; i < voicebarsObj.num_items; i++) {
-            var angle = radians(distributeAngles(i, voicebarsObj.num_items));
-            voicebarsObj.particles[i] = {
-                x: voicebarsObj.width/2 + Math.cos(angle) * voicebarsObj.radius,
-                y: voicebarsObj.height/2 + Math.sin(angle) * voicebarsObj.radius,
+        for (var i = 0; i < num_items; i++) {
+            var angle = radians(distributeAngles(i, num_items));
+            particles[i] = {
+                x: width/2 + Math.cos(angle) * radius,
+                y: height/2 + Math.sin(angle) * radius,
                 angle: angle
             }
         }
-    },
+    };
 
-    getAudio: function() { 
+    const getAudio = function() { 
     
         navigator.mediaDevices.getUserMedia({
             audio: true
         }).then(stream => {
             // Handle the incoming audio stream
-            voicebarsObj.audioContext = new (window.AudioContext ||
+            audioContext = new (window.AudioContext ||
                 window.webkitAudioContext)();
              //this.micDelay = this.audioContext.createDelay(0);
-            voicebarsObj.analyser = voicebarsObj.audioContext.createAnalyser();
-            voicebarsObj.analyser.minDecibels = -90;
-            voicebarsObj.analyser.maxDecibels = -10;
-            voicebarsObj.analyser.smoothingTimeConstant = smoothingTimeConstant;
-            voicebarsObj.analyser.fftSize = fftSize;
-            dataArray = new Uint8Array(voicebarsObj.analyser.frequencyBinCount);
+            analyser = audioContext.createAnalyser();
+            analyser.minDecibels = -90;
+            analyser.maxDecibels = -10;
+            analyser.smoothingTimeConstant = smoothingTimeConstant;
+            analyser.fftSize = fftSize;
+            dataArray = new Uint8Array(analyser.frequencyBinCount);
             //var bufferLength = analyser.frequencyBinCount;
-            source = voicebarsObj.audioContext.createMediaStreamSource(stream);
+            source = audioContext.createMediaStreamSource(stream);
             //this.micDelay.delayTime.value = this.props.audioDelayTime; //somewhere around 1
-            source.connect(voicebarsObj.analyser);
+            source.connect(analyser);
     
-            voicebarsObj.rafId = requestAnimationFrame(voicebarsObj.tick);
+            rafId = requestAnimationFrame(tick);
     
             }, error => {
             // Something went wrong, or the browser does not support getUserMedia
         });
     
     
-    },
+    };
 
 
-    restart: function() {
+    const restart = function(hst) {
         console.log("RESETTING");
-        console.log(headShotOBJ.getHeadShotType);
-        window.cancelAnimationFrame( voicebarsObj.rafId);
-        voicebarsObj.audioContext.close().then(function() {
+        console.log(hst);
+        headShotType = hst;
+        window.cancelAnimationFrame( rafId);
+        audioContext.close().then(function() {
             console.log("audioContextClosed");
-            voicebarsObj.init();
+            init();
         });
-    },
+    };
 
-    setInitialValues() {
-        voicebarsObj.canvas = document.getElementById("circle-canvas");
-        voicebarsObj.canvas2 = document.getElementById("circle-canvas-2");
-        voicebarsObj.ctx = voicebarsObj.canvas.getContext('2d');
-        voicebarsObj.ctx2 = voicebarsObj.canvas2.getContext('2d');
-        voicebarsObj.width = voicebarsObj.canvas.width;
-        voicebarsObj.height = voicebarsObj.canvas.height;
-        voicebarsObj.radius = 100;
-        voicebarsObj.num_items = 40;
-        voicebarsObj.myThing = document.getElementById("countdown");
-    },
+    const setInitialValues = function() {
+        canvas = document.getElementById("circle-canvas");
+        canvas2 = document.getElementById("circle-canvas-2");
+        ctx = canvas.getContext('2d');
+        ctx2 = canvas2.getContext('2d');
+        width = canvas.width;
+        height = canvas.height;
+        radius = 100;
+        num_items = 40;
+        myThing = document.getElementById("countdown");
+    };
 
-    init: function() {
+    const init = function() {
         console.log("Voice Bars INIT");
-        voicebarsObj.setInitialValues();
-        voicebarsObj.ctx.clearRect(0, 0, voicebarsObj.canvas.width, voicebarsObj.canvas.height);
-        voicebarsObj.ctx2.clearRect(0, 0, voicebarsObj.canvas.width, voicebarsObj.canvas.height);
-        voicebarsObj.prepType();
-        voicebarsObj.makeAngles();
-        voicebarsObj.getAudio();
-    }
-    
-
-   
-}
+        setInitialValues();
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx2.clearRect(0, 0, canvas.width, canvas.height);
+        prepType();
+        makeAngles();
+        getAudio();
+    };
 
 
-
-module.exports = { 
-    init: voicebarsObj.init,
-    restart: voicebarsObj.restart
-};
+    return {
+        init: init,
+        restart: restart
+    };
+})();

@@ -1,7 +1,7 @@
 {
   "name": "obs_overlay",
   "description": "OBS Overlay",
-  "version": "2.1",
+  "version": "0.1.2",
   "author": "Chenzo",
   "license": "MIT",
   "repository": {

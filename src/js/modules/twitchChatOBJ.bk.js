@@ -16,11 +16,33 @@ export const twitchChatOBJ = (() => {
 
         console.log('Activating Twitch');
 
-        const { Chat } = window.TwitchJs;
-
         const username = "chenzorama";
         const token = configData.OAUTH;
-        const channel = "chenzorama"
+
+        const client = new tmi.Client({
+            options: { debug: true, messagesLogLevel: "info" },
+            connection: {
+                reconnect: true,
+                secure: true
+            },
+            identity: {
+                username: username,
+                password: token
+            },
+            channels: [ username ]
+        });
+        client.connect().catch(console.error);
+        client.on('message', (channel, tags, message, self) => {
+            if(self) return;
+            /* if(message.toLowerCase() === '!hello') {
+                client.say(channel, `@${tags.username}, heya!`);
+            } */
+            console.log("hey there");
+        });
+
+        /* const { Chat } = window.TwitchJs;
+
+        
 
         const chat = new Chat({
             username,
@@ -34,40 +56,7 @@ export const twitchChatOBJ = (() => {
             const channel = message.channel;
             const msg = message.message || "";
 
-            //console.log(message);
-            if (message.self) return;
-            //console.log(`${time}  - ${event} - ${channel} - ${msg}`);
-
-            if (event == "PRIVMSG") {
-                console.log(message.username + " said: " + message.message);
-
-
-                if (message.message === '!scooby') {
-                    //if (userstate['display-name'] == "Chenzorama" || userstate['mod']) {
-                    headShotOBJ.toggleCam("skully");
-                    chat.say(channel, 'Switching To Scooby Level Skull');
-                    //} 
-                }
-
-                if (message.message === '!headshot') {
-                    //if (userstate['display-name'] == "Chenzorama" || userstate['mod']) {
-                    headShotOBJ.toggleCam("headshot");
-                    chat.say(channel, 'Switching To Chenzo Headshot');
-                    //} 
-                }
-
-                if (message === '!3') {
-                    //displayOBJ.playAudio("3");
-                }
-
-                if (message === '!digs') {
-                    //displayOBJ.playAudio("digs");
-                }
-            
-                if (message === '!babyshark') {
-                    //displayOBJ.playAudio("babyshark");
-                }
-            }
+            console.log(`${time}  - ${event} - ${channel} - ${msg}`);
         });
 
 
@@ -77,7 +66,7 @@ export const twitchChatOBJ = (() => {
 
         setTimeout(() => {
             chat.join(username);
-        }, 3000);
+        }, 3000); */
         
         //
 
