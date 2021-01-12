@@ -1,26 +1,17 @@
 {
   "name": "obs_overlay",
   "description": "OBS Overlay",
-  "version": "0.1.0",
+  "version": "2.1",
   "author": "Chenzo",
   "license": "MIT",
   "repository": {
     "type": "git"
   },
   "devDependencies": {
-    "browser-sync": "^2.26.12",
-    "gulp": "^4.0.2",
-    "gulp-concat": "^2.6.1",
-    "gulp-newer": "^1.4.0",
-    "gulp-plumber": "^1.2.0",
-    "gulp-postcss": "^8.0.0",
-    "gulp-replace": "^1.0.0",
-    "gulp-sass": "^4.0.2",
-    "merge-stream": "^2.0.0",
-    "through2": "^3.0.1",
-    "twitch-js": "^1.2.17",
-    "vinyl-named": "^1.1.0",
-    "webpack": "^4.26.1",
-    "webpack-stream": "^5.1.1"
+    "node-sass": "^5.0.0",
+    "rollup": "^2.36.1",
+    "rollup-plugin-livereload": "^2.0.0",
+    "rollup-plugin-serve": "^1.1.0",
+    "rollup-plugin-terser": "^7.0.2"
   }
 }
