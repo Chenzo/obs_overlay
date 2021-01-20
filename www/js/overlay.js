@@ -198,8 +198,8 @@
       Client_Secret : 'qya1ilrj7i6yblku1impcw2oxcz7vq',
       OAUTH: 'oauth:xkz8a8qk4f5sjm25wldsowxxwz5rnl',
       userID: '58652316',
-      server: 'https://fierce-springs-20115.herokuapp.com/',
-      //server: 'http://localhost:9001/',
+      //server: 'https://fierce-springs-20115.herokuapp.com/',
+      server: 'http://localhost:9001/',
       server_port: 3002
     };
 
@@ -293,12 +293,12 @@
         let scrollIt = function(who, message, id) {
             console.log(who, message, id);
 
-            var newDiv = document.createElement("div"); 
+            let newDiv = document.createElement("div"); 
             newDiv.id = id;
             //this.PrevID = id;
             newDiv.classList.add("aphrase");
 
-            var span = document.createElement('span');
+            let span = document.createElement('span');
             span.textContent = who + ": ";
             span.classList.add("usr");
 
@@ -322,15 +322,16 @@
 
         let checkDivScroll = function() {
             var pendingLength = document.getElementsByClassName("aphrase").length;
-
+            let x = 0;
             if (pendingLength > 0) {
+                
                 for (x=0; x<pendingLength; x++) {
                     //console.log(document.getElementsByClassName("aphrase")[x]);
-
                     //var lastDiv = document.getElementsByClassName("aphrase")[document.getElementsByClassName("aphrase").length - 1]
-                    var lastDiv = document.getElementsByClassName("aphrase")[x];
-                    theLeft = lastDiv.offsetLeft + lastDiv.offsetWidth;
+                    let lastDiv = document.getElementsByClassName("aphrase")[x];
+                    let theLeft = lastDiv.offsetLeft + lastDiv.offsetWidth;
                     var prevLeft = 0;
+
                     if (x > 0) {
                         var prevDiv = document.getElementsByClassName("aphrase")[x - 1];
                         prevLeft = prevDiv.offsetLeft + prevDiv.offsetWidth;
@@ -346,7 +347,6 @@
                     }
                 }
             }
-
             //document.getElementById("numoutput").innerHTML= checkTimer;
             //addcheckTimer++; // <-- this never seems to do anything?
             requestAnimationFrame(checkDivScroll);
@@ -434,13 +434,17 @@
                 const channel = message.channel;
                 const msg = message.message || "";
 
+
+                
                 //console.log(message);
                 if (message.self) return;
                 //console.log(`${time}  - ${event} - ${channel} - ${msg}`);
 
-                if (event == "PRIVMSG") {
-                    console.log(message.username + " said: " + message.message);
+                
 
+                if (event == "PRIVMSG") {
+                    chatScrollerOBJ.scrollIt(message.username, message.message, message.tags.id);
+                    //console.log(message.username + " said: " + message.message);
 
                     if (message.message === '!scooby') {
                         //if (userstate['display-name'] == "Chenzorama" || userstate['mod']) {
@@ -646,17 +650,23 @@
         };
 
         const adjustAlignment = function(amount) {
-            console.log("AMMOUJT" + amount);
+            console.log("AMMOUJNT" + amount);
             var skullmeter = document.querySelector("#skullmeter");
-            var style = window.getComputedStyle(skullmeter);
+            /* var style = window.getComputedStyle(skullmeter);
             var matrix = new WebKitCSSMatrix(style.webkitTransform);
             var currentAlignment = matrix.m41;
             //console.log('translateX: ', matrix.m41);
 
             var newAlignment = parseInt(currentAlignment) + parseInt(amount);
-            console.log(newAlignment);
-            var val = newAlignment + "px";
-            skullmeter.style.transform = "translateX(" + val + ")";
+            console.log(newAlignment); */
+
+            //var val = newAlignment + "px";
+
+            let val = parseInt(amount) - 50;
+            val = val * 9; //this is to go from -450% to 450% which is the width of the bar.;
+            console.log("MOVE THIS MUCH " + val);
+
+            skullmeter.style.transform = "translateX(" + val + "%)";
         };
 
         const newFollowerAlert = function(followName) {

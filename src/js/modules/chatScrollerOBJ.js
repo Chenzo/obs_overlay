@@ -7,12 +7,12 @@ export const chatScrollerOBJ = (() => {
     let scrollIt = function(who, message, id) {
         console.log(who, message, id);
 
-        var newDiv = document.createElement("div"); 
+        let newDiv = document.createElement("div"); 
         newDiv.id = id;
         //this.PrevID = id;
         newDiv.classList.add("aphrase");
 
-        var span = document.createElement('span');
+        let span = document.createElement('span');
         span.textContent = who + ": ";
         span.classList.add("usr");
 
@@ -36,15 +36,16 @@ export const chatScrollerOBJ = (() => {
 
     let checkDivScroll = function() {
         var pendingLength = document.getElementsByClassName("aphrase").length;
-
+        let x = 0;
         if (pendingLength > 0) {
+            
             for (x=0; x<pendingLength; x++) {
                 //console.log(document.getElementsByClassName("aphrase")[x]);
-
                 //var lastDiv = document.getElementsByClassName("aphrase")[document.getElementsByClassName("aphrase").length - 1]
-                var lastDiv = document.getElementsByClassName("aphrase")[x];
-                theLeft = lastDiv.offsetLeft + lastDiv.offsetWidth;
+                let lastDiv = document.getElementsByClassName("aphrase")[x];
+                let theLeft = lastDiv.offsetLeft + lastDiv.offsetWidth;
                 var prevLeft = 0;
+
                 if (x > 0) {
                     var prevDiv = document.getElementsByClassName("aphrase")[x - 1];
                     prevLeft = prevDiv.offsetLeft + prevDiv.offsetWidth;
@@ -60,7 +61,6 @@ export const chatScrollerOBJ = (() => {
                 }
             }
         }
-
         //document.getElementById("numoutput").innerHTML= checkTimer;
         //addcheckTimer++; // <-- this never seems to do anything?
         recId = requestAnimationFrame(checkDivScroll);
