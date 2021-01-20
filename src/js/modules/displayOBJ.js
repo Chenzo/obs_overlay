@@ -69,17 +69,23 @@ export const displayOBJ = (() => {
     };
 
     const adjustAlignment = function(amount) {
-        console.log("AMMOUJT" + amount);
+        console.log("AMMOUJNT" + amount);
         var skullmeter = document.querySelector("#skullmeter");
-        var style = window.getComputedStyle(skullmeter);
+        /* var style = window.getComputedStyle(skullmeter);
         var matrix = new WebKitCSSMatrix(style.webkitTransform);
         var currentAlignment = matrix.m41;
         //console.log('translateX: ', matrix.m41);
 
         var newAlignment = parseInt(currentAlignment) + parseInt(amount);
-        console.log(newAlignment);
-        var val = newAlignment + "px";
-        skullmeter.style.transform = "translateX(" + val + ")";
+        console.log(newAlignment); */
+
+        //var val = newAlignment + "px";
+
+        let val = parseInt(amount) - 50;
+        val = val * 9; //this is to go from -450% to 450% which is the width of the bar.;
+        console.log("MOVE THIS MUCH " + val);
+
+        skullmeter.style.transform = "translateX(" + val + "%)";
     };
 
     const newFollowerAlert = function(followName) {

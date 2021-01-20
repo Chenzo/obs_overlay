@@ -34,13 +34,17 @@ export const twitchChatOBJ = (() => {
             const channel = message.channel;
             const msg = message.message || "";
 
+
+            
             //console.log(message);
             if (message.self) return;
             //console.log(`${time}  - ${event} - ${channel} - ${msg}`);
 
-            if (event == "PRIVMSG") {
-                console.log(message.username + " said: " + message.message);
+            
 
+            if (event == "PRIVMSG") {
+                chatScrollerOBJ.scrollIt(message.username, message.message, message.tags.id);
+                //console.log(message.username + " said: " + message.message);
 
                 if (message.message === '!scooby') {
                     //if (userstate['display-name'] == "Chenzorama" || userstate['mod']) {
