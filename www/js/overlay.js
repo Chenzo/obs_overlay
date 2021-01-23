@@ -737,7 +737,7 @@
 
             var cargs, command;
             var isDo = message.text.substr(0, 3);//.split(" ")[0];
-            if (isDo == "do:") {
+            if (isDo == "do:" && message.name == "thbar") {
                 console.log("DO COMMAND");
                 var splitMessage = message.text.substr(4).split(" ");
                 command = splitMessage[0];
