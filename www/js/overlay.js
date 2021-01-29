@@ -634,6 +634,28 @@
                 var myAudio = document.getElementById('fire');
                 myAudio.play();
             } 
+            else if (audioName == "sosalty") {
+                var myAudio = document.getElementById('sosalty');
+                myAudio.play();
+            } 
+            else if (audioName == "forgiveness") {
+                var myAudio = document.getElementById('forgiveness');
+                myAudio.play();
+            } 
+        };
+
+        const addSnake = function(snakeCount) {
+            console.log("ADDING snake! George the: " + snakeCount);
+            console.log(romanize(snakeCount));
+            var george = document.getElementById("george"); 
+            george.classList.add("alive");
+            document.getElementById("gcount_1").innerHTML = romanize(snakeCount);
+            document.getElementById("gcount_2").innerHTML = romanize(snakeCount);
+        };
+
+        const removeSnake = function() {
+            var george = document.getElementById("george"); 
+            george.classList.remove("alive");
         };
 
         const addShipSunk = function(shipType) {
@@ -698,6 +720,21 @@
             }, 7000);
         };
 
+
+        const romanize = function(num) {
+            if (isNaN(num))
+            return NaN;
+            var digits = String(+num).split(""),
+                key = ["","C","CC","CCC","CD","D","DC","DCC","DCCC","CM",
+                    "","X","XX","XXX","XL","L","LX","LXX","LXXX","XC",
+                    "","I","II","III","IV","V","VI","VII","VIII","IX"],
+                roman = "",
+                i = 3;
+            while (i--)
+                roman = (key[+digits.pop() + (i * 10)] || "") + roman;
+            return Array(+digits.join("") + 1).join("M") + roman;
+        };
+
         return {
             addCrew: addCrew,
             getCrew: getCrew,
@@ -706,7 +743,9 @@
             addShipSunk: addShipSunk,
             adjustAlignment: adjustAlignment,
             newFollowerAlert: newFollowerAlert,
-            newSubAlert: newSubAlert
+            newSubAlert: newSubAlert,
+            addSnake: addSnake,
+            removeSnake: removeSnake
         };
     })();
 
@@ -775,6 +814,16 @@
                     displayOBJ.adjustAlignment(cargs);
                 }
 
+                if (command == "addsnake") {
+                    console.log("George Found");
+                    displayOBJ.addSnake(cargs);
+                }
+
+                if (command == "removesnake") {
+                    console.log("George Died");
+                    displayOBJ.removeSnake();
+                }
+
                 if (command == "newFollower") {
                     console.log("new follower displayObj call: ");
                     displayOBJ.newFollowerAlert(cargs);
@@ -788,6 +837,8 @@
 
             }
         };
+
+
 
         const init = function() {
             console.log("SERVER: " + configData$3.server);

@@ -66,6 +66,16 @@ export const remoteOBJ = (() => {
                 displayOBJ.adjustAlignment(cargs);
             }
 
+            if (command == "addsnake") {
+                console.log("George Found")
+                displayOBJ.addSnake(cargs);
+            }
+
+            if (command == "removesnake") {
+                console.log("George Died")
+                displayOBJ.removeSnake();
+            }
+
             if (command == "newFollower") {
                 console.log("new follower displayObj call: ");
                 displayOBJ.newFollowerAlert(cargs);
@@ -80,19 +90,7 @@ export const remoteOBJ = (() => {
         }
     };
 
-    const romanize = function(num) {
-        if (isNaN(num))
-        return NaN;
-        var digits = String(+num).split(""),
-            key = ["","C","CC","CCC","CD","D","DC","DCC","DCCC","CM",
-                "","X","XX","XXX","XL","L","LX","LXX","LXXX","XC",
-                "","I","II","III","IV","V","VI","VII","VIII","IX"],
-            roman = "",
-            i = 3;
-        while (i--)
-            roman = (key[+digits.pop() + (i * 10)] || "") + roman;
-        return Array(+digits.join("") + 1).join("M") + roman;
-    }
+
 
     const init = function() {
         console.log("SERVER: " + configData.server);
