@@ -66,6 +66,16 @@ export const remoteOBJ = (() => {
                 displayOBJ.adjustAlignment(cargs);
             }
 
+            if (command == "addsnake") {
+                console.log("George Found")
+                displayOBJ.addSnake(cargs);
+            }
+
+            if (command == "removesnake") {
+                console.log("George Died")
+                displayOBJ.removeSnake();
+            }
+
             if (command == "newFollower") {
                 console.log("new follower displayObj call: ");
                 displayOBJ.newFollowerAlert(cargs);
@@ -79,6 +89,8 @@ export const remoteOBJ = (() => {
 
         }
     };
+
+
 
     const init = function() {
         console.log("SERVER: " + configData.server);
