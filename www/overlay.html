@@ -2,209 +2,50 @@
 
 <html>
     <head>
-        <link rel="stylesheet" href="./css/animate.css" />
         <link rel="stylesheet" href="./css/overlay.css?cache_buster=1607717111756" />
+
+
+        <style>
+            .avContainer {
+                /*Position of circle*/
+                bottom: -20px; 
+                right: -50px;
+            }
+
+            .avContainer .circleContainer {
+                /* Size of Cropping Circle */
+                width: 200px;
+                height: 200px;
+            }
+
+            .avContainer .videoContainer {
+                border: 4px solid #2e9397;
+            }
+
+        </style>
+
     </head>
     <body>
 
-        <header>
-            <div class="innerBar top-clip windlass">
-                <span class="dropshadow_effect_11x tshadow" contentEditable="true">The Gentlemen of Fortune and the Adventures of The Holy Bartender</span>
-                <video width="1200" autoPlay={true} muted={true} loop={true}>
-                    <source 
-                      src="./video/waterup.webm"
-                      type="video/webm" />
-                  </video> 
-                  <!-- 
-                      //src="images/smokeywater.mp4"
-                      //src="video/waterup.mp4"
-                      //type="video/mp4" 
-                  -->
-            
-              </div>
-              <div class="alignment">
-                <img src="images/ribbon_evil.png" class="evil"/>
-                <img src="images/ribbon_good.png" class="good" />
-                <img id="skullmeter" src="images/skull_meter.png" class="skullmeter" />
-              </div>
-              <!-- <div class="seperator">
-                <img src="images/pileofskulls.png" />
-                <hr class="mid" />
-            </div> -->
-        </header>
-
         <main>
 
-            <section id="new_follower_pop" class="new_follower_pop animate__animated">
-                <div class="ribbon_holder">
-                    <div class="left_text textStyle">New</div>
-                    <div class="right_text textStyle">Follower</div>
-                    <div class="ribbon_holder">
-                        <img src="images/newfollow_ribbon.png" class="newfollow" />
-                    </div>
-
-                    
-                    <svg id="text_curve" viewBox="0 0 300 300">
-                        <path id="curve" d="m4.5,3.45313c0,0 154,80 300,-8" />
-                        <text width="300">
-                            <textPath id="newfollow_text" xlink:href="#curve" startOffset="50%" text-anchor="middle">
-                            Untrueherro
-                            </textPath>
-                        </text>
-                    </svg>
-                </div>
-            </section>
-
-
-
-            <section id="new_sub">
-                <div class="badge"><img id="theHand" src="images/hand_icon_forsub.png" class="hand" /></div>
-                <div id="sub_text" class="sub_text animate__animated"><span class="name">This Guy</span>&nbsp;has subbed for 1 month.</div>
-                <img src="images/background_forsub.png" class="bg" />
-            </section>
-
-            <section id="countdown" class="countdown">
-                id: 
-            </section>
-
-
-            
-
             <div id="headshot" class="avContainer headshot">
-                <div id="george" class="snake">
-                    <div class="count windlass">
-                        <div id="gcount_1" class="top">XIV</div>
-                        <div id="gcount_2" class="bottom">XIV</div>
-                    </div>
-                    <div class="snake_holder">
-                        <img id="snake" src="./images/snake.png" />
-                    </div>
-                </div>
-                <div class="goldBG streamName">
-                    <div class="windlass">Mr<span>.</span> Chenzo</div>
-                </div>
-                <div class="audioContainer">
-                    <canvas width="500" height="500" id="circle-canvas"></canvas>
-                </div>
-                <div class="audioContainer flipped">
-                    <canvas width="500" height="500" id="circle-canvas-2"></canvas>
-                </div>
                 <div class="videoContainer circleContainer">
 
                 </div> 
                 <div class="imageContainer circleContainer">
                     <video width="250" autoPlay={true} muted={true} loop={true}>
-                        <source src="./video/chenzo_headshot.webm"
-                            type="video/webm" />
+                        <source src="./video/chenzo_headshot.mp4"
+                            type="video/mp4" />
                     </video>
-
-                    <div id="skull_bg" class="skull_bg"></div>
-                    <div id="skull_blk_bg" class="skull_blk_bg"></div>
-                    <!-- <img src={mrChenzo} alt="Mr Chenzo" class="mrChenzo"/> -->
-                </div>
-                <div class="skully">
-                    <div  id="skull_top" class="skull_top">
-                        <div class="eyes">
-                            <div class="lefty eye"></div>
-                            <div class="righty eye"></div>
-                        </div>
-                        <img id="skull_top_open" src="./images/skully_top_open.png" class="top_open" />
-                        <img id="skull_top_closed" src="./images/skully_top_closed.png" class="top_closed" />
-                    </div>
-                    <img id="skull_jaw" src="./images/skully_jaw.png" class="jaw" />
                 </div>
                 
             </div>
         </main>
 
-        <div id="numoutput">1234</div>
 
-
-        <div id="crew" class="crew">
-            <div id="peoples" class="crewmate peoples">
-                <img src="images/crew/peoples.png" />
-            </div>
-
-            <div id="hero" class="crewmate hero">
-                <img src="images/crew/hero.png" />
-            </div>
-
-            <div id="binobo" class="crewmate binobo">
-                <img src="images/crew/binobo.png" />
-            </div>
-        </div>
-
-
-        <div id="sunks" class="sunks">
-            <!-- <div class="ship-sinker sink">
-                <div class="aship float">
-                    <img src="images/sunk/galleon.png" />
-                </div>
-            </div>
-
-            <div class="ship-sinker sink">
-                <div class="aship float brig">
-                    <img src="images/sunk/brig.png" />
-                </div>
-            </div>
-
-            <div class="ship-sinker sink">
-                <div class="aship float sloop">
-                    <img src="images/sunk/sloop.png" />
-                </div>
-            </div> -->
-
-        </div>
-
-        <footer>
-            <div id="latest_followers" class="latest windlass">
-                <div>Latest Followers: <div id="latestFollowers" class="followers"> - </div></div>
-            </div>
-            <div id="chatSpace" class="tchat windlass">
-                <!-- <div id="phrase" class="aphrase"><span class="usr">Chenzo</span>: <span class="msg">HAhahaha this is just me saying stuff</span></div> -->
-            </div>
-        </footer>
-
-        <!-- <script src="./js/socket.io.min.js"></script> -->
-        <script src="https://cdn.socket.io/socket.io-3.0.1.min.js"></script>
-        <script src="./js/vendor/twitch.js"></script>
-        <!-- <script src="./js/vendor/tmi.min.js"></script> -->
-        <script src="./js/overlay.js"></script>
-
-        <audio id="um3">
-            <source src="./audio/umm-3.mp3" type="audio/mpeg">
-        </audio>
-        <audio id="digs">
-            <source src="./audio/dogs.mp3" type="audio/mpeg">
-        </audio>
-        <audio id="babyshark">
-            <source src="./audio/babyshark.mp3" type="audio/mpeg">
-        </audio>
-        <audio id="sharkbait">
-            <source src="./audio/sharkbait.mp3" type="audio/mpeg">
-        </audio>
-
-        <audio id="carl">
-            <source src="./audio/carl.mp3" type="audio/mpeg">
-        </audio>
-        <audio id="chunky">
-            <source src="./audio/chunky.mp3" type="audio/mpeg">
-        </audio>
-        <audio id="fire">
-            <source src="./audio/fire.mp3" type="audio/mpeg">
-        </audio>
-        <audio id="wind">
-            <source src="./audio/wind.mp3" type="audio/mpeg">
-        </audio>
-        <audio id="sosalty">
-            <source src="./audio/sosalty.mp3" type="audio/mpeg">
-        </audio>
-        <audio id="forgiveness">
-            <source src="./audio/forgiveness.mp3" type="audio/mpeg">
-        </audio>
     </body>
-    
-    
+  
 </html>
 
 
