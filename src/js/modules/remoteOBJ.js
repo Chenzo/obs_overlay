@@ -5,7 +5,9 @@ const configData = configModule.getConfig();
 
 
 const socket_user_name = 'thbar_obs';
-const socket_room = 'panel_remote';
+//const socket_room = 'panel_remote';
+const socket_room = 'teaxc64in';
+
 let socket = null;
 
 export const remoteOBJ = (() => {
@@ -23,8 +25,21 @@ export const remoteOBJ = (() => {
         });
     };
 
+    const onAnEvent = function(theEventDat) {
+        console.log("received event!!");
+        console.log(theEventDat);
+
+        if (theEventDat.event == "shipsunk" || theEventDat.event == "shipresunk" ) {
+            displayOBJ.addShipSunk(theEventDat.ship);
+        }
+
+        if (theEventDat.event == "setAlignment") {
+            displayOBJ.adjustAlignment(theEventDat.amount);
+        }
+    }
+
     const onMessage = function(message) {
-        console.log("- message: " + message.text);
+        console.log("- message: " + message.text + " | from: " + message.name);
 
         var cargs, command;
         var isDo = message.text.substr(0, 3);//.split(" ")[0];
@@ -58,13 +73,13 @@ export const remoteOBJ = (() => {
                 displayOBJ.removeCrew(cargs);
             }
 
-            if (command == "shipsunk") {
+            /* if (command == "shipsunk") {
                 displayOBJ.addShipSunk(cargs);
             }
 
             if (command == "setAlignment") {
                 displayOBJ.adjustAlignment(cargs);
-            }
+            } */
 
             if (command == "addsnake") {
                 console.log("George Found")
@@ -98,6 +113,7 @@ export const remoteOBJ = (() => {
         socket.on('connect_error', handleNoConnect);
         socket.on("connect", onConnect);
         socket.on("message", onMessage);
+        socket.on("anEvent", onAnEvent)
     };
 
     return {
