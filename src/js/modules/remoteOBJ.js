@@ -5,7 +5,9 @@ const configData = configModule.getConfig();
 
 
 const socket_user_name = 'thbar_obs';
-const socket_room = 'panel_remote';
+//const socket_room = 'panel_remote';
+const socket_room = 'teaxc64in';
+
 let socket = null;
 
 export const remoteOBJ = (() => {
@@ -23,8 +25,49 @@ export const remoteOBJ = (() => {
         });
     };
 
+    const onToAuxEvent = function(evtData) {
+        console.log("received ToAuxEvent!!");
+        console.log(evtData);
+
+        if (evtData.event == "playaudio") {
+            displayOBJ.playAudio(evtData.target);
+        }
+
+        if (evtData.event == "addcrew") {
+            console.log("trying to add crew");
+            displayOBJ.addCrew(evtData.target);
+        }
+
+        if (evtData.event == "removecrew") {
+            displayOBJ.removeCrew(evtData.target);
+        }
+
+        if (evtData.event == "addsnake") {
+            console.log("George Found")
+            displayOBJ.addSnake(evtData.target);
+        }
+
+        if (evtData.event == "removesnake") {
+            console.log("George Died")
+            displayOBJ.removeSnake();
+        }
+    }
+
+    const onAnEvent = function(theEventDat) {
+        console.log("received event!!");
+        console.log(theEventDat);
+
+        if (theEventDat.event == "shipsunk" || theEventDat.event == "shipresunk" ) {
+            displayOBJ.addShipSunk(theEventDat.ship);
+        }
+
+        if (theEventDat.event == "setAlignment") {
+            displayOBJ.adjustAlignment(theEventDat.amount);
+        }
+    }
+
     const onMessage = function(message) {
-        console.log("- message: " + message.text);
+        console.log("- message: " + message.text + " | from: " + message.name);
 
         var cargs, command;
         var isDo = message.text.substr(0, 3);//.split(" ")[0];
@@ -45,36 +88,6 @@ export const remoteOBJ = (() => {
                 });
             }
             
-            if (command == "addcrew") {
-                console.log("addcrew", cargs);
-                displayOBJ.addCrew(cargs);
-            }
-
-            if (command == "playaudio") {
-                displayOBJ.playAudio(cargs);
-            }
-
-            if (command == "removecrew") {
-                displayOBJ.removeCrew(cargs);
-            }
-
-            if (command == "shipsunk") {
-                displayOBJ.addShipSunk(cargs);
-            }
-
-            if (command == "setAlignment") {
-                displayOBJ.adjustAlignment(cargs);
-            }
-
-            if (command == "addsnake") {
-                console.log("George Found")
-                displayOBJ.addSnake(cargs);
-            }
-
-            if (command == "removesnake") {
-                console.log("George Died")
-                displayOBJ.removeSnake();
-            }
 
             if (command == "newFollower") {
                 console.log("new follower displayObj call: ");
@@ -98,6 +111,8 @@ export const remoteOBJ = (() => {
         socket.on('connect_error', handleNoConnect);
         socket.on("connect", onConnect);
         socket.on("message", onMessage);
+        socket.on("anEvent", onAnEvent);
+        socket.on("toAuxEvent", onToAuxEvent);
     };
 
     return {
