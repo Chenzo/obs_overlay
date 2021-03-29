@@ -773,6 +773,34 @@
             });
         };
 
+        const onToAuxEvent = function(evtData) {
+            console.log("received ToAuxEvent!!");
+            console.log(evtData);
+
+            if (evtData.event == "playaudio") {
+                displayOBJ.playAudio(evtData.target);
+            }
+
+            if (evtData.event == "addcrew") {
+                console.log("trying to add crew");
+                displayOBJ.addCrew(evtData.target);
+            }
+
+            if (evtData.event == "removecrew") {
+                displayOBJ.removeCrew(evtData.target);
+            }
+
+            if (evtData.event == "addsnake") {
+                console.log("George Found");
+                displayOBJ.addSnake(evtData.target);
+            }
+
+            if (evtData.event == "removesnake") {
+                console.log("George Died");
+                displayOBJ.removeSnake();
+            }
+        };
+
         const onAnEvent = function(theEventDat) {
             console.log("received event!!");
             console.log(theEventDat);
@@ -808,36 +836,6 @@
                     });
                 }
                 
-                if (command == "addcrew") {
-                    console.log("addcrew", cargs);
-                    displayOBJ.addCrew(cargs);
-                }
-
-                if (command == "playaudio") {
-                    displayOBJ.playAudio(cargs);
-                }
-
-                if (command == "removecrew") {
-                    displayOBJ.removeCrew(cargs);
-                }
-
-                /* if (command == "shipsunk") {
-                    displayOBJ.addShipSunk(cargs);
-                }
-
-                if (command == "setAlignment") {
-                    displayOBJ.adjustAlignment(cargs);
-                } */
-
-                if (command == "addsnake") {
-                    console.log("George Found");
-                    displayOBJ.addSnake(cargs);
-                }
-
-                if (command == "removesnake") {
-                    console.log("George Died");
-                    displayOBJ.removeSnake();
-                }
 
                 if (command == "newFollower") {
                     console.log("new follower displayObj call: ");
@@ -862,6 +860,7 @@
             socket.on("connect", onConnect);
             socket.on("message", onMessage);
             socket.on("anEvent", onAnEvent);
+            socket.on("toAuxEvent", onToAuxEvent);
         };
 
         return {
