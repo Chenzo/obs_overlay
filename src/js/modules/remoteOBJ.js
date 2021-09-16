@@ -57,12 +57,12 @@ export const remoteOBJ = (() => {
         console.log("received event!!");
         console.log(theEventDat);
 
-        if (theEventDat.event == "shipsunk" || theEventDat.event == "shipresunk" ) {
+        if (theEventDat.event == "shipsunk" || theEventDat.event == "shipresunk" || theEventDat.event == "shipsunk-flag" || theEventDat.event == "shipresunk-flag") {
             displayOBJ.addShipSunk(theEventDat.ship);
         }
 
         if (theEventDat.event == "setAlignment") {
-            displayOBJ.adjustAlignment(theEventDat.amount);
+            displayOBJ.adjustAlignment(theEventDat.ship);
         }
     }
 
