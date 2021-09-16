@@ -642,6 +642,10 @@
                 var myAudio = document.getElementById('forgiveness');
                 myAudio.play();
             } 
+            else if (audioName == "scooty") {
+                var myAudio = document.getElementById('scooty');
+                myAudio.play();
+            } 
         };
 
         const addSnake = function(snakeCount) {
