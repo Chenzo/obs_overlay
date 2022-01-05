@@ -61,6 +61,12 @@ export const remoteOBJ = (() => {
             displayOBJ.addShipSunk(theEventDat.ship);
         }
 
+        if (theEventDat.event == "playaudio") {
+            console.log("I'm here... this should be it?");
+            console.log(theEventDat.ship);
+            displayOBJ.playAudio(theEventDat.ship);
+        }
+
         if (theEventDat.event == "setAlignment") {
             displayOBJ.adjustAlignment(theEventDat.ship);
         }
