@@ -24,6 +24,9 @@ export const displayOBJ = (() => {
     };
 
     const playAudio = function(audioName) {
+
+        console.log(audioName)
+
         if (audioName == "3") {
             var myAudio = document.getElementById('um3');
             myAudio.play();
@@ -63,6 +66,11 @@ export const displayOBJ = (() => {
         } 
         else if (audioName == "scooty") {
             var myAudio = document.getElementById('scooty');
+            myAudio.play();
+        } 
+        else if (audioName == "warrenty") {
+            console.log("HEY THERE")
+            var myAudio = document.getElementById('warrenty');
             myAudio.play();
         } 
     };
