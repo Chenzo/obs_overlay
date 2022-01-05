@@ -56,7 +56,12 @@ export const twitchChatOBJ = (() => {
             if (message.self) return;
             //console.log(`${time}  - ${event} - ${channel} - ${msg}`);
 
-            
+
+            if (message.tags.customRewardId == "d9bedb7f-faf1-41b3-8fa8-a5443cd927bf") {
+                //sink that ship reward: 
+                console.log("THIS IS SINK THE BOAT DO IT");
+                console.log(`${message.tags.displayName} demands we sink the next ship`)
+            }
 
             if (event == "PRIVMSG") {
                 console.log("this should fire the chat scroller...");

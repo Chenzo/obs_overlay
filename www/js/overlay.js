@@ -456,7 +456,12 @@
                 if (message.self) return;
                 //console.log(`${time}  - ${event} - ${channel} - ${msg}`);
 
-                
+
+                if (message.tags.customRewardId == "d9bedb7f-faf1-41b3-8fa8-a5443cd927bf") {
+                    //sink that ship reward: 
+                    console.log("THIS IS SINK THE BOAT DO IT");
+                    console.log(`${message.tags.displayName} demands we sink the next ship`);
+                }
 
                 if (event == "PRIVMSG") {
                     console.log("this should fire the chat scroller...");
@@ -513,6 +518,9 @@
         };
 
         const playAudio = function(audioName) {
+
+            console.log(audioName);
+
             if (audioName == "3") {
                 var myAudio = document.getElementById('um3');
                 myAudio.play();
@@ -552,6 +560,11 @@
             } 
             else if (audioName == "scooty") {
                 var myAudio = document.getElementById('scooty');
+                myAudio.play();
+            } 
+            else if (audioName == "warrenty") {
+                console.log("HEY THERE");
+                var myAudio = document.getElementById('warrenty');
                 myAudio.play();
             } 
         };
