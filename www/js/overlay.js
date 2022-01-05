@@ -196,11 +196,10 @@
       channelName : "chenzorama",
       Client_ID : 'do2pfinbp2ykiwsauawxb7vs8d09w3',
       Client_Secret : 'qya1ilrj7i6yblku1impcw2oxcz7vq',
-      //OAUTH: 'oauth:xkz8a8qk4f5sjm25wldsowxxwz5rnl',
-      OAUTH: `oauth:jm8je5l3fbyu09vmyvrbxio81lm6if`,
+      OAUTH: 'oauth:jm8je5l3fbyu09vmyvrbxio81lm6if',
       userID: '58652316',
-      //server: 'https://fierce-springs-20115.herokuapp.com/',
-      server: 'http://localhost:3000/',
+      server: 'https://fierce-springs-20115.herokuapp.com/',
+      //server: 'http://localhost:9001/',
       server_port: 3002
     };
 
