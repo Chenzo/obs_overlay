@@ -13,7 +13,7 @@
     "sass": "node-sass --source-map true --watch src/scss -o www/css --recursive  --output-style compressed"
   },
   "devDependencies": {
-    "node-sass": "^5.0.0",
+    "node-sass": "^7.0.0",
     "rollup": "^2.36.1",
     "rollup-plugin-livereload": "^2.0.0",
     "rollup-plugin-serve": "^1.1.0",
