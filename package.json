@@ -10,9 +10,11 @@
   "scripts": {
     "build": "rollup --config",
     "start": "rollup --config --watch",
+    "serve": "http-server www",
     "sass": "node-sass --source-map true --watch src/scss -o www/css --recursive  --output-style compressed"
   },
   "devDependencies": {
+    "http-server": "^14.1.0",
     "node-sass": "^5.0.0",
     "rollup": "^2.36.1",
     "rollup-plugin-livereload": "^2.0.0",
